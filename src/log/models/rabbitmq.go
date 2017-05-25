@@ -20,7 +20,7 @@ func Receiver() {
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
-		"hello", // name
+		"log", // name
 		false,   // durable
 		false,   // delete when unused
 		false,   // exclusive

@@ -7,10 +7,15 @@ import (
 	"log"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
+	"os"
 )
 
 func main() {
-	time.AfterFunc(10*time.Second,CallFuncIndexTrendingPost2DaysAgo)
+	aa := os.Getenv("GOENV")
+
+	logs.SetLogger(logs.AdapterFile,`{"filename":"log/project.log","level":7,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10}`)
+	time.AfterFunc(10*time.Second,CallProducer)
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
@@ -18,7 +23,7 @@ func main() {
 	beego.Run()
 }
 
-func CallFuncIndexTrendingPost2DaysAgo(){
+func CallProducer(){
 	req,err := httplib.Get("http://127.0.0.1:8080/v1/rabbitmq/producer").Debug(true).Response()
 	if err != nil {log.Println(err)}
 	log.Println(req)

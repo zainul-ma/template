@@ -11,6 +11,10 @@ import (
 	"customer/controllers"
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego"
+	"customer/thirdparty"
+	"log"
+	"math/rand"
+	"strconv"
 )
 
 func init() {
@@ -31,8 +35,36 @@ func init() {
 	beego.AddNamespace(ns)
 }
 
+
 func Auth(c *context.Context){
+	log.Println("")
+	SendMQ(c)
+	/*
+	Input Request Data [Body Header]
+	x := int64(120)
+	t := c.Input.CopyBody(x)
+	log.Println(string(t))
+
+	l := c.Input.Header("key")
+	log.Println(l)
+	*/
+
+
+
 
 	beego.Debug("checking.....")
 	// c.Output.Body([]byte("bob"))
+}
+
+func SendMQ(c *context.Context){
+	reqID := ""
+	fromService := beego.BConfig.AppName
+	inputReqBody := c.Input.CopyBody(int64(1200))
+	headerAll := c.Input.HeaderAll()
+
+	if c.Input.Header("reqID") == "" {
+		RandomID := strconv.Itoa(rand.Int())
+		reqID = RandomID
+		thirdparty.SendMQ(inputReqBody,fromService,"",headerAll,reqID)
+	}
 }
