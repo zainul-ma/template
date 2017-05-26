@@ -8,11 +8,11 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
-	"os"
+	// "os"
 )
 
 func main() {
-	aa := os.Getenv("GOENV")
+	// aa := os.Getenv("GOENV")
 
 	logs.SetLogger(logs.AdapterFile,`{"filename":"log/project.log","level":7,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10}`)
 	time.AfterFunc(10*time.Second,CallProducer)

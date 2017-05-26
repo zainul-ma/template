@@ -11,10 +11,10 @@ import (
 	"customer/controllers"
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego"
-	"customer/thirdparty"
+	// "customer/thirdparty"
 	"log"
-	"math/rand"
-	"strconv"
+	// "math/rand"
+	// "strconv"
 )
 
 func init() {
@@ -38,7 +38,7 @@ func init() {
 
 func Auth(c *context.Context){
 	log.Println("")
-	SendMQ(c)
+	// SendMQ(c)
 	/*
 	Input Request Data [Body Header]
 	x := int64(120)
@@ -56,15 +56,15 @@ func Auth(c *context.Context){
 	// c.Output.Body([]byte("bob"))
 }
 
-func SendMQ(c *context.Context){
-	reqID := ""
-	fromService := beego.BConfig.AppName
-	inputReqBody := c.Input.CopyBody(int64(1200))
-	headerAll := c.Input.HeaderAll()
-
-	if c.Input.Header("reqID") == "" {
-		RandomID := strconv.Itoa(rand.Int())
-		reqID = RandomID
-		thirdparty.SendMQ(inputReqBody,fromService,"",headerAll,reqID)
-	}
-}
+// func SendMQ(c *context.Context){
+// 	reqID := ""
+// 	fromService := beego.BConfig.AppName
+// 	inputReqBody := c.Input.CopyBody(int64(1200))
+// 	headerAll := c.Input.HeaderAll()
+//
+// 	if c.Input.Header("reqID") == "" {
+// 		RandomID := strconv.Itoa(rand.Int())
+// 		reqID = RandomID
+// 		thirdparty.SendMQ(inputReqBody,fromService,"",headerAll,reqID)
+// 	}
+// }

@@ -4,6 +4,8 @@ import (
   "log"
 
   "github.com/streadway/amqp"
+  "github.com/astaxie/beego"
+  bolt "github.com/johnnadratowski/golang-neo4j-bolt-driver"
 )
 
 func init() {
@@ -52,8 +54,21 @@ func Receiver() {
   <-forever
 }
 
+var driver = bolt.NewDriver()
+func SendGraphDb(query string) {
+  conn, err := driver.OpenNeo("bolt://localhost:7687")
+	FailOnError(err,"Error Connect GraphDB")
+	defer conn.Close()
+
+
+  // stmt,err := conn.PrepareNeo("create")
+
+
+}
+
 func FailOnError(err error, msg string) {
 	if err != nil {
-		log.Fatalf("%s: %s", msg, err)
+		beego.Warning(msg)
+    beego.Critical(err)
 	}
 }
