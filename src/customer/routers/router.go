@@ -38,7 +38,7 @@ func init() {
 
 func Auth(c *context.Context){
 	log.Println("")
-	// SendMQ(c)
+	SendMq(c)
 	/*
 	Input Request Data [Body Header]
 	x := int64(120)
@@ -56,15 +56,17 @@ func Auth(c *context.Context){
 	// c.Output.Body([]byte("bob"))
 }
 
-// func SendMQ(c *context.Context){
-// 	reqID := ""
-// 	fromService := beego.BConfig.AppName
-// 	inputReqBody := c.Input.CopyBody(int64(1200))
-// 	headerAll := c.Input.HeaderAll()
-//
-// 	if c.Input.Header("reqID") == "" {
-// 		RandomID := strconv.Itoa(rand.Int())
-// 		reqID = RandomID
-// 		thirdparty.SendMQ(inputReqBody,fromService,"",headerAll,reqID)
-// 	}
-// }
+func SendMq(c *context.Context) {
+	reqId := ""
+	fromService := beego.BConfig.AppName
+	inputReqBody := c.Input.CopyBody(int64(1200))
+	headerAll := c.Input.HeaderAll()
+
+	randomId := strconv.Itoa(rand.Int())
+	reqId = randomId
+	newRequest := false
+	if c.Input.Header("reqID") == "" {
+		newRequest = true
+	}
+	thirdparty.SendMQ(inputReqBody,fromService,"",headerAll,reqId,newRequest)
+}

@@ -6,7 +6,7 @@ import(
 	"log"
 )
 
-func SendMQ(inputReqBody []byte,fromService string,toService string,headerAll string,reqID string) {
+func SendMQ(inputReqBody []byte,fromService string,toService string,headerAll string,reqID string,newRequest bool) {
   conn, err := amqp.Dial("amqp://guest:guest@192.168.99.100:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
