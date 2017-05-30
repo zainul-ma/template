@@ -11,10 +11,10 @@ import (
 	"customer/controllers"
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego"
-	// "customer/thirdparty"
+	"customer/thirdparty"
 	"log"
-	// "math/rand"
-	// "strconv"
+	"math/rand"
+	"strconv"
 )
 
 func init() {
@@ -31,14 +31,15 @@ func init() {
 				&controllers.TblCustomerController{},
 			),
 		),
+		beego.NSAfter(AfterFunc),
 	)
 	beego.AddNamespace(ns)
 }
 
 
-func Auth(c *context.Context){
+func Auth(c *context.Context) {
 	log.Println("")
-	SendMq(c)
+	// SendMq(c)
 	/*
 	Input Request Data [Body Header]
 	x := int64(120)
@@ -50,10 +51,18 @@ func Auth(c *context.Context){
 	*/
 
 
-
-
 	beego.Debug("checking.....")
 	// c.Output.Body([]byte("bob"))
+}
+
+func AfterFunc(c *context.Context) {
+	// var t interface{}
+	// t = []byte(`{"name":"jannes"}`)
+	// body := c.Output.JSON(t,true,true);
+	// log.Println(body)
+
+	// res := c.ResponseWriter
+	// log.Println(res)
 }
 
 func SendMq(c *context.Context) {
