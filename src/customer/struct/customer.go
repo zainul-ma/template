@@ -1,4 +1,4 @@
-package struct
+package structcustomer
 
 import (
   "gopkg.in/go-playground/validator.v9"
