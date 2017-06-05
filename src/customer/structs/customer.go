@@ -1,9 +1,9 @@
 package structs
 
 import (
-  // "gopkg.in/go-playground/validator.v9"
-  // "fmt"
-  "gopkg.in/mgo.v2/bson"
+	// "gopkg.in/go-playground/validator.v9"
+	// "fmt"
+	"gopkg.in/mgo.v2/bson"
 )
 
 // type TypeCustomerRequest struct {
@@ -12,7 +12,6 @@ import (
 // 	Username string `validate:"required"`
 // 	Email string `validate:"required"`
 // }
-
 
 type (
 	// TypeCustomer = Type Request Customer

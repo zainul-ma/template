@@ -2,15 +2,14 @@ package controllers
 
 import (
 	"encoding/json"
-	"strings"
+	"errors"
 	"math/rand"
 	"strconv"
-	"errors"
+	"strings"
 
 	"customer/helper"
-	"customer/thirdparty"
 	"customer/models"
-	
+	"customer/thirdparty"
 
 	"github.com/astaxie/beego"
 	// "github.com/astaxie/beego/context"
@@ -29,24 +28,24 @@ func TrackingOutputCustomer(c *TblCustomerController) {
 func SendMq(c *TblCustomerController) {
 	fromService := beego.BConfig.AppName
 	reqBody := c.Ctx.Input.CopyBody(int64(1200))
-	resBody,_ := json.Marshal(c.Data["json"])
+	resBody, _ := json.Marshal(c.Data["json"])
 	headerAll := helper.HeaderAll(c.Ctx)
 	toService := ""
-	
+
 	reqId := c.Ctx.Input.Header("reqID")
 	newRequest := false
 	if reqId == "" {
 		newRequest = true
-		PtrReqId(&reqId,rand.Int(),&fromService,"client",&toService,beego.BConfig.AppName)
-	}else{
-		
+		PtrReqId(&reqId, rand.Int(), &fromService, "client", &toService, beego.BConfig.AppName)
+	} else {
+
 	}
 
-	thirdparty.SendMq(reqBody,fromService,toService,headerAll,reqId,newRequest,"req")
-	thirdparty.SendMq(resBody,fromService,toService,headerAll,reqId,newRequest,"res")
+	thirdparty.SendMq(reqBody, fromService, toService, headerAll, reqId, newRequest, "req")
+	thirdparty.SendMq(resBody, fromService, toService, headerAll, reqId, newRequest, "res")
 }
 
-func PtrReqId(reqId *string,val int,fromService *string, valFromService string, toService *string, valToService string) {
+func PtrReqId(reqId *string, val int, fromService *string, valFromService string, toService *string, valToService string) {
 	*reqId = strconv.Itoa(val)
 	*fromService = valFromService
 	*toService = valToService
@@ -80,8 +79,7 @@ func (c *TblCustomerController) Post() {
 	} else {
 		c.Data["json"] = err.Error()
 	}
-
-	TrackingOutputCustomer(c)
+	c.ServeJSON()
 }
 
 // GetOne ...
@@ -112,7 +110,7 @@ func (c *TblCustomerController) GetOne() {
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
-// @Param	offset	query	string	false	"Start position of result set. Must be an integer"
+// @Param	latestID	query	string	false	"Start position of result set. Must be an ID"
 // @Success 200 {object} models.TblCustomer
 // @Failure 403
 // @router / [get]
@@ -122,7 +120,7 @@ func (c *TblCustomerController) GetAll() {
 	var order []string
 	var query = make(map[string]string)
 	var limit int = 10
-	var offset string
+	var latestID string
 
 	// fields: col1,col2,entity.col3
 	if v := c.GetString("fields"); v != "" {
@@ -132,9 +130,9 @@ func (c *TblCustomerController) GetAll() {
 	if v, err := c.GetInt("limit"); err == nil {
 		limit = v
 	}
-	// offset: 0 (default is 0)
-	if v := c.GetString("offset"); v != "" {
-		offset = v
+	// latestID: 0 (default is 0)
+	if v := c.GetString("latestID"); v != "" {
+		latestID = v
 	}
 	// sortby: col1,col2
 	if v := c.GetString("sortby"); v != "" {
@@ -158,13 +156,13 @@ func (c *TblCustomerController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllCustomer(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllCustomer(query, fields, sortby, order, latestID, limit)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = l
 	}
-	TrackingOutputCustomer(c)
+	c.ServeJSON()
 }
 
 // Put ...

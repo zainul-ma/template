@@ -1,40 +1,30 @@
 package models
 
 import (
-	// "github.com/astaxie/beego"
+	"errors"
+	"strings"
+
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+
 	structCustomer "customer/structs"
 )
 
 var session *mgo.Session
 
-// Customer -- this user-service purpose for generic user
-type (
-	Customer struct {
-		ID       bson.ObjectId `json:"id" bson:"_id,omitempty"`
-		Fullname string        `json:"fullname,omitempty" bson:"fullname"`
-		Username string        `json:"username,omitempt" bson:"username"`
-		Email    string        `json:"email" bson:"email"`
-	}
-)
-
 func getTableName() string {
 	return "customer"
 }
 
-
-func init() {}
-
 // GetCustomerByID method
-func GetCustomerByID(id string) (cust structCustomer.TypeCustomer, err error) {
+func GetCustomerByID(id string) (cust structCustomer.Customer, err error) {
 	connection := ConnectMongo()
 
 	defer connection.Close()
 
 	c := connection.DB("").C(getTableName())
 
-	customer := structCustomer.TypeCustomer{}
+	customer := structCustomer.Customer{}
 
 	err = c.Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&customer)
 
@@ -45,18 +35,68 @@ func GetCustomerByID(id string) (cust structCustomer.TypeCustomer, err error) {
 
 // GetAllCustomer method
 func GetAllCustomer(query map[string]string, fields []string, sortby []string,
-	order []string, latestID string, limit int) (searchResults []interface{}, err error) {
-	// fmt.Println("====")
-	// fmt.Println(query)
-	// fmt.Println("====")
-	if latestID != "" {
-		searchResults, err = Search(bson.M{
-			"_id": bson.M{
-				"&gt": bson.ObjectIdHex(latestID),
-			},
-		}, limit)
+	order []string, latestID string,
+	limit int) (searchResults []interface{}, err error) {
+
+	queryBuilder := bson.M{}
+	queryBuilder["$or"] = []bson.M{}
+
+	for k, v := range query {
+		// rewrite dot-notation to Object__Attribute
+		k = strings.Replace(k, ".", "__", -1)
+		queryBuilder["$or"] = append(queryBuilder["$or"].([]bson.M), bson.M{k: v})
+	}
+
+	// order by:
+	var sortFields []string
+	if len(sortby) != 0 {
+		if len(sortby) == len(order) {
+			// 1) for each sort field, there is an associated order
+			for i, v := range sortby {
+				orderby := ""
+				if order[i] == "desc" {
+					orderby = "-" + v
+				} else if order[i] == "asc" {
+					orderby = v
+				} else {
+					return nil, errors.New(
+						"Error: Invalid order. Must be either [asc|desc]")
+				}
+				sortFields = append(sortFields, orderby)
+			}
+
+		} else if len(sortby) != len(order) && len(order) == 1 {
+			// 2) there is exactly one order, all the sorted fields will be sorted by this order
+			for _, v := range sortby {
+				orderby := ""
+				if order[0] == "desc" {
+					orderby = "-" + v
+				} else if order[0] == "asc" {
+					orderby = v
+				} else {
+					return nil, errors.New(
+						"Error: Invalid order. Must be either [asc|desc]")
+				}
+				sortFields = append(sortFields, orderby)
+			}
+		} else if len(sortby) != len(order) && len(order) != 1 {
+			return nil, errors.New(
+				"Error: 'sortby', 'order' sizes mismatch or 'order' size is not 1")
+		}
 	} else {
-		searchResults, err = Search(nil, limit)
+		if len(order) != 0 {
+			return nil, errors.New("Error: unused 'order' fields")
+		}
+	}
+
+	if latestID != "" {
+		queryBuilder["_id"] = bson.M{
+			"&gt": bson.ObjectIdHex(latestID),
+		}
+
+		searchResults, err = Search(queryBuilder, fields, sortFields, limit)
+	} else {
+		searchResults, err = Search(queryBuilder, fields, sortFields, limit)
 	}
 
 	return searchResults, err
@@ -65,20 +105,32 @@ func GetAllCustomer(query map[string]string, fields []string, sortby []string,
 // withCollection method
 func withCollection(s func(*mgo.Collection) error) error {
 	connection := ConnectMongo()
-
 	defer connection.Close()
-
 	c := connection.DB("").C(getTableName())
 	return s(c)
 }
 
+// selectOnlyFields method
+func selectOnlyFields(q ...string) (r bson.M) {
+	r = make(bson.M, len(q))
+	for _, s := range q {
+		r[s] = 1
+	}
+	return
+}
+
 //Search for base method
-func Search(q interface{}, limit int) (searchResults []interface{},
-	searchErr error) {
+func Search(q interface{}, fields []string, sortBy []string, limit int) (
+	searchResults []interface{}, searchErr error) {
 	query := func(c *mgo.Collection) error {
-		fn := c.Find(q).Limit(limit).All(&searchResults)
+		fn := c.Find(q).Select(
+			selectOnlyFields(fields...)).Sort(
+			sortBy...).Limit(limit).All(&searchResults)
+
 		if limit < 0 {
-			fn = c.Find(q).All(&searchResults)
+			fn = c.Find(q).Select(
+				selectOnlyFields(fields...)).Sort(
+				sortBy...).All(&searchResults)
 		}
 		return fn
 	}
@@ -93,40 +145,28 @@ func Search(q interface{}, limit int) (searchResults []interface{},
 }
 
 //UpdateCustomer method
-func UpdateCustomer(id string, customer *Customer) (err error) {
+func UpdateCustomer(id string, customer *structCustomer.Customer) (err error) {
 	connection := ConnectMongo()
-
 	defer connection.Close()
-
 	c := connection.DB("").C(getTableName())
-
 	err = c.Update(bson.M{"_id": bson.ObjectIdHex(id)}, customer)
-
 	return
 }
 
 // AddCustomer method
-func AddCustomer(customer *Customer) (err error) {
+func AddCustomer(customer *structCustomer.Customer) (err error) {
 	connection := ConnectMongo()
-
 	defer connection.Close()
-
 	c := connection.DB("").C(getTableName())
-
 	err = c.Insert(customer)
-
 	return
 }
 
 // DeleteCustomer method
 func DeleteCustomer(id string) (err error) {
 	connection := ConnectMongo()
-
 	defer connection.Close()
-
 	c := connection.DB("").C(getTableName())
-
 	err = c.Remove(bson.M{"_id": bson.ObjectIdHex(id)})
-
 	return
 }
