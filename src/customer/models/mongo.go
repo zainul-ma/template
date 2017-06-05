@@ -10,28 +10,24 @@ import(
 )
 
 var envOs = os.Getenv("GOENV")
-type TypeDbCred struct {
-	Local string `json:"local"`
-	Dev string `json:"dev"`
-	Prod string `json:"prod"`
-}
-
+// DbCred call DB Cred
 func DbCred() string {
-	db_url := ""
+	dbURL := ""
     if envOs == "local" {
-    	db_url = beego.AppConfig.String("mongodb:local")
+    	dbURL = beego.AppConfig.String("mongodb:local")
 	}else if envOs == "dev" {
-		db_url = beego.AppConfig.String("mongodb:dev")
+		dbURL = beego.AppConfig.String("mongodb:dev")
 	}else if envOs == "prod" {
-		db_url = beego.AppConfig.String("mongodb:prod")
+		dbURL = beego.AppConfig.String("mongodb:prod")
 	}
 
-    return db_url
+    return dbURL
 }
 
+// ConnectMongo to connect Mongo DB
 func ConnectMongo() *mgo.Session {
-	dbUrl := DbCred();
-	session,err := mgo.Dial(dbUrl)
+	dbURL := DbCred();
+	session,err := mgo.Dial(dbURL)
 	CheckErr(err,"error connect mongo DB")
 
 	if envOs != "prod" {
@@ -42,6 +38,7 @@ func ConnectMongo() *mgo.Session {
 	return session
 }
 
+// CheckErr to check Error
 func CheckErr(err error, msg string) {
 	if err != nil {
 		beego.Warning(msg)

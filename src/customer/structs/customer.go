@@ -6,14 +6,16 @@ import (
   "gopkg.in/mgo.v2/bson"
 )
 
-type TypeCustomerRequest struct {
-	ID int `validate:"required"`
-	Fullname string `validate:"required"`
-	Username string `validate:"required"`
-	Email string `validate:"required"`
-}
+// type TypeCustomerRequest struct {
+// 	ID int `validate:"required"`
+// 	Fullname string `validate:"required"`
+// 	Username string `validate:"required"`
+// 	Email string `validate:"required"`
+// }
+
 
 type (
+	// TypeCustomer = Type Request Customer
 	TypeCustomer struct {
 		ID       bson.ObjectId `json:"id" bson:"_id,omitempty"`
 		Fullname string        `json:"fullname,omitempty" bson:"fullname"`

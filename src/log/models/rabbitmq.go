@@ -31,7 +31,6 @@ func init() {
 
 func CredMq() string {
 	mq := ""
-	envOs = os.Getenv("GOENV")
 	if envOs == "local" {
 		mq = beego.AppConfig.String("mq::local")
 	}else if envOs == "dev" {

@@ -3,22 +3,40 @@ package thirdparty
 import(
 	"github.com/streadway/amqp"
  	"github.com/astaxie/beego"
-	"log"
 	"encoding/json"
+	"os"
 )
+
+// TypeLogData = request Log Data
 type TypeLogData struct {
 	From string `json:"from"`
 	To string `json:"to"`
-	ReqId string `json:"reqId"`
+	ReqID string `json:"reqId"`
 	Header string `json:"header"`
 	Body string `json:"body"`
 	TypeRel string `json:"type"`
 }
 
-func SendMq(inputReqBody []byte,fromService string,toService string,headerAll string,reqId string,newRequest bool,typeRelation string) {
- 	log.Println("")
+// CredMq = Get Credential MQ
+func CredMq() string {
+	mq := ""
+	envOs := os.Getenv("GOENV")
+	if envOs == "local" {
+		mq = beego.AppConfig.String("mq::local")
+	}else if envOs == "dev" {
+		mq = beego.AppConfig.String("mq::dev")
+	}else if envOs == "prod" {
+		mq = beego.AppConfig.String("mq::prod")
+	}
 
- 	conn, err := amqp.Dial("amqp://guest:guest@172.17.0.1:5672/")
+	return mq
+}
+
+// SendMq = to Send MQ Data
+func SendMq(inputReqBody []byte,fromService string,toService string,headerAll string,reqID string,newRequest bool,typeRelation string) {
+ 	mq := CredMq()
+
+ 	conn, err := amqp.Dial(mq)
 	CheckErr(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 
@@ -39,12 +57,12 @@ func SendMq(inputReqBody []byte,fromService string,toService string,headerAll st
 	typeLogData := &TypeLogData{
 		From:fromService,
 		To:toService,
-		ReqId:reqId,
+		ReqID:reqID,
 		Header:headerAll,
 		Body:string(inputReqBody),
 		TypeRel:typeRelation,
 	}
-	logJsonMarshal,err := json.Marshal(typeLogData);CheckErr(err,"error rabbitMQ line 47")
+	logJSONMarshal,err := json.Marshal(typeLogData);CheckErr(err,"error rabbitMQ line 47")
 	
 	err = ch.Publish(
 		"",     // exchange
@@ -53,12 +71,15 @@ func SendMq(inputReqBody []byte,fromService string,toService string,headerAll st
 		false,  // immediate
 		amqp.Publishing{
 			ContentType: "application/json",
-			Body:        logJsonMarshal,
+			Body:        logJSONMarshal,
 		},
 	)
 	CheckErr(err, "Failed to publish a message")
+
+	return
 }
 
+// CheckErr = Checking Error
 func CheckErr(err error, msg string) {
 	if err != nil {
 	    beego.Warning("MESSAGE RABBITMQ: "+msg)
