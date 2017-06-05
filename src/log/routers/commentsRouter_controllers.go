@@ -2,6 +2,7 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context/param"
 )
 
 func init() {
@@ -11,6 +12,7 @@ func init() {
 			Method: "Post",
 			Router: `/`,
 			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:ObjectController"] = append(beego.GlobalControllerRouter["log/controllers:ObjectController"],
@@ -18,6 +20,7 @@ func init() {
 			Method: "Get",
 			Router: `/:objectId`,
 			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:ObjectController"] = append(beego.GlobalControllerRouter["log/controllers:ObjectController"],
@@ -25,6 +28,7 @@ func init() {
 			Method: "GetAll",
 			Router: `/`,
 			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:ObjectController"] = append(beego.GlobalControllerRouter["log/controllers:ObjectController"],
@@ -32,6 +36,7 @@ func init() {
 			Method: "Put",
 			Router: `/:objectId`,
 			AllowHTTPMethods: []string{"put"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:ObjectController"] = append(beego.GlobalControllerRouter["log/controllers:ObjectController"],
@@ -39,6 +44,7 @@ func init() {
 			Method: "Delete",
 			Router: `/:objectId`,
 			AllowHTTPMethods: []string{"delete"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:UserController"] = append(beego.GlobalControllerRouter["log/controllers:UserController"],
@@ -46,6 +52,7 @@ func init() {
 			Method: "Post",
 			Router: `/`,
 			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:UserController"] = append(beego.GlobalControllerRouter["log/controllers:UserController"],
@@ -53,6 +60,7 @@ func init() {
 			Method: "GetAll",
 			Router: `/`,
 			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:UserController"] = append(beego.GlobalControllerRouter["log/controllers:UserController"],
@@ -60,6 +68,7 @@ func init() {
 			Method: "Get",
 			Router: `/:uid`,
 			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:UserController"] = append(beego.GlobalControllerRouter["log/controllers:UserController"],
@@ -67,6 +76,7 @@ func init() {
 			Method: "Put",
 			Router: `/:uid`,
 			AllowHTTPMethods: []string{"put"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:UserController"] = append(beego.GlobalControllerRouter["log/controllers:UserController"],
@@ -74,6 +84,7 @@ func init() {
 			Method: "Delete",
 			Router: `/:uid`,
 			AllowHTTPMethods: []string{"delete"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:UserController"] = append(beego.GlobalControllerRouter["log/controllers:UserController"],
@@ -81,6 +92,7 @@ func init() {
 			Method: "Login",
 			Router: `/login`,
 			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["log/controllers:UserController"] = append(beego.GlobalControllerRouter["log/controllers:UserController"],
@@ -88,6 +100,7 @@ func init() {
 			Method: "Logout",
 			Router: `/logout`,
 			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
 			Params: nil})
 
 }
