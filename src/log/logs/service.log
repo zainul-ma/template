@@ -8,3 +8,10 @@
 2017/06/05 14:21:20 [I] [asm_amd64.s:2197] http server Running on http://:8080
 2017/06/05 14:21:30 [D] [rabbitmq.go:42] amqp://guest:guest@172.17.0.1:5672/ 
 2017/06/05 14:21:38 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 14:40:17 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 14:40:27 [D] [rabbitmq.go:142] Created Rows 
+2017/06/05 14:40:27 [D] [rabbitmq.go:143] 1 
+2017/06/05 14:40:27 [D] [rabbitmq.go:142] Created Rows 
+2017/06/05 14:40:27 [D] [rabbitmq.go:143] 1 
+2017/06/05 14:40:27 [D] [rabbitmq.go:142] Created Rows 
+2017/06/05 14:40:27 [D] [rabbitmq.go:143] 0 

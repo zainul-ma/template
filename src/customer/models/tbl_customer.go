@@ -1,9 +1,10 @@
 package models
 
 import (
-	"github.com/astaxie/beego"
+	// "github.com/astaxie/beego"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	structCustomer "customer/structs"
 )
 
 var session *mgo.Session
@@ -22,33 +23,18 @@ func getTableName() string {
 	return "customer"
 }
 
-// Conn : initiate connection
-func Conn() *mgo.Session {
-	return session.Copy()
-}
 
-func init() {
-	url := beego.AppConfig.String("mongodb:url")
-
-	sess, err := mgo.Dial(url)
-
-	if err != nil {
-
-	}
-
-	session = sess
-	session.SetMode(mgo.Monotonic, true)
-}
+func init() {}
 
 // GetCustomerByID method
-func GetCustomerByID(id string) (cust Customer, err error) {
-	connection := Conn()
+func GetCustomerByID(id string) (cust structCustomer.TypeCustomer, err error) {
+	connection := ConnectMongo()
 
 	defer connection.Close()
 
 	c := connection.DB("").C(getTableName())
 
-	customer := Customer{}
+	customer := structCustomer.TypeCustomer{}
 
 	err = c.Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&customer)
 
@@ -78,7 +64,7 @@ func GetAllCustomer(query map[string]string, fields []string, sortby []string,
 
 // withCollection method
 func withCollection(s func(*mgo.Collection) error) error {
-	connection := Conn()
+	connection := ConnectMongo()
 
 	defer connection.Close()
 
@@ -108,7 +94,7 @@ func Search(q interface{}, limit int) (searchResults []interface{},
 
 //UpdateCustomer method
 func UpdateCustomer(id string, customer *Customer) (err error) {
-	connection := Conn()
+	connection := ConnectMongo()
 
 	defer connection.Close()
 
@@ -121,7 +107,7 @@ func UpdateCustomer(id string, customer *Customer) (err error) {
 
 // AddCustomer method
 func AddCustomer(customer *Customer) (err error) {
-	connection := Conn()
+	connection := ConnectMongo()
 
 	defer connection.Close()
 
@@ -134,7 +120,7 @@ func AddCustomer(customer *Customer) (err error) {
 
 // DeleteCustomer method
 func DeleteCustomer(id string) (err error) {
-	connection := Conn()
+	connection := ConnectMongo()
 
 	defer connection.Close()
 

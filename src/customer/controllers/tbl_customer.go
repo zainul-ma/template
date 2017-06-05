@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"strings"
 	"math/rand"
+	"strconv"
+	"errors"
 
 	"customer/helper"
 	"customer/thirdparty"
-
 	"customer/models"
-	"errors"
+	
 
 	"github.com/astaxie/beego"
 	// "github.com/astaxie/beego/context"

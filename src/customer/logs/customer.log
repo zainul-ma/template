@@ -1,1 +1,13 @@
 2017/06/05 14:25:08 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 14:39:05 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 14:39:07 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 14:40:03 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 14:40:05 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 14:40:09 [D] [router.go:37] checking..... 
+2017/06/05 14:40:09 [D] [server.go:2568] |      127.0.0.1|[42m 201 [0m|  14.133636ms|   match|[46m POST    [0m /v1/tbl_customer   r:/v1/tbl_customer/
+2017/06/05 14:41:42 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 14:42:54 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 14:47:02 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 14:47:10 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 14:47:31 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 14:53:48 [I] [asm_amd64.s:2197] http server Running on http://:8081
