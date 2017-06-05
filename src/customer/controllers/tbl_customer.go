@@ -8,7 +8,8 @@ import (
 	"strings"
 
 	"customer/helper"
-	"customer/models"
+	models "customer/models"
+	structCustomer "customer/structs"
 	"customer/thirdparty"
 
 	"github.com/astaxie/beego"
@@ -68,7 +69,7 @@ func (c *TblCustomerController) URLMapping() {
 // @Failure 403 body is empty
 // @router / [post]
 func (c *TblCustomerController) Post() {
-	var v models.Customer
+	var v structCustomer.Customer
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if err2 := models.AddCustomer(&v); err2 == nil {
 			c.Ctx.Output.SetStatus(201)
@@ -175,7 +176,7 @@ func (c *TblCustomerController) GetAll() {
 // @router /:id [put]
 func (c *TblCustomerController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
-	var v models.Customer
+	var v structCustomer.Customer
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if err2 := models.UpdateCustomer(idStr, &v); err2 == nil {
 			c.Data["json"] = "OK"
