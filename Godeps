@@ -1,1 +1,5 @@
 github.com/astaxie/beego
+github.com/go-sql-driver/mysql
+github.com/streadway/amqp
+github.com/johnnadratowski/golang-neo4j-bolt-driver
+gopkg.in/mgo.v2

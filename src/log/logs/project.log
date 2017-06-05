@@ -1,0 +1,636 @@
+2017/05/25 18:11:35 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/25 18:12:32 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/25 18:12:48 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/25 18:12:55 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/25 18:13:09 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/25 18:13:50 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/25 18:14:10 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/26 13:37:47 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/26 13:44:02 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/26 13:44:31 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/26 13:46:29 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/05/26 15:20:15 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 12:24:39 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 12:47:26 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 12:47:39 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 12:54:00 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 12:54:10 [W] [rabbitmq.go:73] Error Connect GraphDB 
+2017/06/02 12:54:10 [C] [rabbitmq.go:74] An error occurred initializing connection
+	An error occurred decoding ack failure message response
+		Couldn't read expected bytes for message length. Read: 0 Expected: 2.
+Internal Error(*errors.errorString):driver: bad connection
+
+ Stack Trace:
+
+goroutine 20 [running]:
+runtime/debug.Stack(0x9a2372, 0x46, 0xc420148db0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd1420, 0xc420137780, 0x9a2372, 0x46, 0xc420148db0, 0x1, 0x1, 0xc420148d78)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Decoder.read(0xbd1560, 0xc4202d00e0, 0xc420267490, 0x4118f8, 0x70, 0x934980)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/decoder.go:45 +0x47f
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Decoder.Decode(0xbd1560, 0xc4202d00e0, 0xc420267490, 0xc2ffff, 0x9060e0, 0xc2b6a0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/decoder.go:93 +0x43
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).ackFailure(0xc4202d00e0, 0xc42026a4b0, 0xc420148f78, 0x1)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:408 +0x172
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4202d00e0, 0xc4202d00e0, 0xc420267030, 0xc42025ffff, 0x92a300)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:561 +0x1bf
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendInit(0xc4202d00e0, 0x0, 0x0, 0x0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:617 +0x3c4
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).initialize(0xc4202d00e0, 0xc4202d00e0, 0x4)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:291 +0x168
+github.com/johnnadratowski/golang-neo4j-bolt-driver.newBoltConn(0x98ee84, 0x15, 0xc42000e198, 0xc4202c8100, 0x7fb4c0bace10, 0xc4202e92f8)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:102 +0x108
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltDriver).OpenNeo(0xc42000e198, 0x98ee84, 0x15, 0xc4202e92d0, 0x42bb8f, 0x8, 0x8)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/driver.go:60 +0x3f
+log/models.SendGraphDb(0x0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:60 +0x4e
+log/models.Receiver()
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:16 +0x45
+log/controllers.(*RabbitmqController).GetMQ(0xc4202ee000)
+	/home/ubuntu/TN/CIS/template/src/log/controllers/rabbitmq.go:16 +0x22
+reflect.Value.call(0x97d040, 0xc4202ee000, 0x4a13, 0x98197b, 0x4, 0xc2b6a0, 0x0, 0x0, 0xc4202f0000, 0x13, ...)
+	/usr/local/go/src/reflect/value.go:434 +0x91f
+reflect.Value.Call(0x97d040, 0xc4202ee000, 0x4a13, 0xc2b6a0, 0x0, 0x0, 0xc2b6a0, 0x0, 0x0)
+	/usr/local/go/src/reflect/value.go:302 +0xa4
+github.com/astaxie/beego.(*ControllerRegister).ServeHTTP(0xc42008ee70, 0xbd7f20, 0xc4202d0000, 0xc420198300)
+	/home/ubuntu/TN/CIS/template/src/github.com/astaxie/beego/router.go:816 +0x1fe7
+net/http.serverHandler.ServeHTTP(0xc42008ef20, 0xbd7f20, 0xc4202d0000, 0xc420198300)
+	/usr/local/go/src/net/http/server.go:2568 +0x92
+net/http.(*conn).serve(0xc420292000, 0xbd8760, 0xc4201ba200)
+	/usr/local/go/src/net/http/server.go:1825 +0x612
+created by net/http.(*Server).Serve
+	/usr/local/go/src/net/http/server.go:2668 +0x2ce
+ 
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] the request url is  /v1/rabbitmq/producer
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/asm_amd64.s:514
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/panic.go:489
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/panic.go:63
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/signal_unix.go:290
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:355
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:69
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:16
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/log/controllers/rabbitmq.go:16
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/asm_amd64.s:514
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /usr/local/go/src/reflect/value.go:434
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /usr/local/go/src/reflect/value.go:302
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/github.com/astaxie/beego/router.go:816
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /usr/local/go/src/net/http/server.go:2568
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /usr/local/go/src/net/http/server.go:1825
+2017/06/02 12:54:10 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/asm_amd64.s:2197
+2017/06/02 12:55:13 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 12:55:16 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 12:55:22 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 12:55:43 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:03:54 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:13:36 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:15:44 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:20:12 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:20:53 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:22:05 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:22:40 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:23:09 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:23:53 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:26:57 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:27:20 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:29:35 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:29:41 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:32:34 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:33:06 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:33:54 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:34:15 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:36:16 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:39:04 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:39:14 [W] [rabbitmq.go:97] error rabbitmq line 65 
+2017/06/02 13:39:14 [C] [rabbitmq.go:98] json: cannot unmarshal string into Go value of type models.TypeLogData 
+2017/06/02 13:40:21 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 13:40:31 [W] [rabbitmq.go:97] error rabbitmq line 65 
+2017/06/02 13:40:31 [C] [rabbitmq.go:98] invalid character 'A' after object key:value pair 
+2017/06/02 13:43:55 [W] [rabbitmq.go:97] error rabbitmq line 65 
+2017/06/02 13:43:55 [C] [rabbitmq.go:98] invalid character 'A' after object key:value pair 
+2017/06/02 13:47:21 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:18:15 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:19:51 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:24:58 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:26:02 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:32:56 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:33:31 [W] [rabbitmq.go:119] error neo4j line 69 
+2017/06/02 14:33:31 [C] [rabbitmq.go:120] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Invalid input '{': expected whitespace or a rel type name (line 3, column 21 (offset: 154))\n\"create (clientNm)-[:{rel}]->(customerNm)\"\n                     ^"}}
+
+ Stack Trace:
+
+goroutine 36 [running]:
+runtime/debug.Stack(0x99b0c7, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd4fa0, 0xc4202801b0, 0x99b0c7, 0x26, 0x0, 0x0, 0x0, 0x908340)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4200e6a80, 0xc4200974a0, 0xae, 0xc4202637d0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc4200e6a80, 0xc4200974a0, 0xae, 0xc4202637d0, 0x940d20, 0x1, 0xc4201b43c0, 0xc4200458b0, 0x85a552, 0x940d20, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201b43c0, 0xc4202637d0, 0x98fc32, 0x13, 0xc4201b43c0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc4200974a0, 0xae, 0xc4202637d0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:106 +0x15b
+log/models.Receiver.func1(0xc4201a0180, 0xc42025a680, 0xc420298240)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:86 +0xe37
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:91 +0x33a
+ 
+2017/06/02 14:39:07 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:39:18 [W] [rabbitmq.go:132] error neo4j line 125 
+2017/06/02 14:39:18 [C] [rabbitmq.go:133] An error occurred getting result of exec command: messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Variable `client_6129484611666145821` not defined (line 1, column 36 (offset: 35))\n\"match (clientNm:clientService{data:client_6129484611666145821}) match (customerNm:customerService{data:customer_6129484611666145821}) create (clientNm)-[:REQ]->(customerNm)\"\n                                    ^"}}
+	Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Variable `client_6129484611666145821` not defined (line 1, column 36 (offset: 35))\n\"match (clientNm:clientService{data:client_6129484611666145821}) match (customerNm:customerService{data:customer_6129484611666145821}) create (clientNm)-[:REQ]->(customerNm)\"\n                                    ^"}}
+
+ Stack Trace:
+
+goroutine 24 [running]:
+runtime/debug.Stack(0x99b199, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc42026ac30, 0x99b199, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4203020e0, 0x1, 0x1, 0xc420262e20, 0x1)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecPipeline(0xc4201f52c0, 0xc42000e3f8, 0x1, 0x1, 0xbd9fa0, 0xc4201f52c0, 0x0, 0x0, 0xac)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:145 +0x22c
+log/models.SendGraphPipeline(0xc420306000, 0xac)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:122 +0x1b6
+log/models.Receiver.func1(0xc4201c2a20, 0xc4201c81a0, 0xc4201c2b40)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:85 +0xd11
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:90 +0x33a
+ 
+2017/06/02 14:39:40 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:39:50 [W] [rabbitmq.go:133] error neo4j line 125 
+2017/06/02 14:39:50 [C] [rabbitmq.go:134] An error occurred getting result of exec command: messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Variable `client_4037200794235010051` not defined (line 1, column 36 (offset: 35))\n\"match (clientNm:clientService{data:client_4037200794235010051}) match (customerNm:customerService{data:customer_4037200794235010051}) create (clientNm)-[:REQ]->(customerNm)\"\n                                    ^"}}
+	Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"message":"Variable `client_4037200794235010051` not defined (line 1, column 36 (offset: 35))\n\"match (clientNm:clientService{data:client_4037200794235010051}) match (customerNm:customerService{data:customer_4037200794235010051}) create (clientNm)-[:REQ]->(customerNm)\"\n                                    ^", "code":"Neo.ClientError.Statement.SyntaxError"}}
+
+ Stack Trace:
+
+goroutine 37 [running]:
+runtime/debug.Stack(0x99b199, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc4202f2a80, 0x99b199, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc420322000, 0x1, 0x1, 0xc4202ef0e0, 0x1)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecPipeline(0xc4202f6200, 0xc420314038, 0x1, 0x1, 0xbd9fa0, 0xc4202f6200, 0x0, 0x0, 0x446237)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:145 +0x22c
+log/models.SendGraphPipeline(0xc420320000, 0xac)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:123 +0x248
+log/models.Receiver.func1(0xc4202fa000, 0xc4202b4090, 0xc4202ae4e0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:85 +0xd11
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:90 +0x33a
+ 
+2017/06/02 14:44:21 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:44:42 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:48:57 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:49:08 [W] [rabbitmq.go:133] error neo4j line 69 
+2017/06/02 14:49:08 [C] [rabbitmq.go:134] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.ParameterMissing", "message":"Expected a parameter named header"}}
+
+ Stack Trace:
+
+goroutine 11 [running]:
+runtime/debug.Stack(0x99b1a1, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc42029cc30, 0x99b1a1, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4202f20e0, 0xc4201a2840, 0x5a, 0xc420286480, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc4202f20e0, 0xc4201a2840, 0x5a, 0xc420286480, 0x940de0, 0x1, 0xc420298540, 0xc4202db8b8, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc420298540, 0xc420286480, 0x98fcf8, 0x13, 0xc420298540, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc4201a2840, 0x5a, 0xc420286480)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:106 +0x15b
+log/models.Receiver.func1(0xc4202c2600, 0xc4202c00c0, 0xc4202e60c0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:81 +0xc8d
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:91 +0x33a
+ 
+2017/06/02 14:50:00 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:50:10 [W] [rabbitmq.go:133] error neo4j line 69 
+2017/06/02 14:50:10 [C] [rabbitmq.go:134] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.ParameterMissing", "message":"Expected a parameter named header"}}
+
+ Stack Trace:
+
+goroutine 22 [running]:
+runtime/debug.Stack(0x99b1a1, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc4203003f0, 0x99b1a1, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc42030a0e0, 0xc4201b61e0, 0x5a, 0xc4203001b0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc42030a0e0, 0xc4201b61e0, 0x5a, 0xc4203001b0, 0x940de0, 0x1, 0xc4201ba100, 0xc4202f38b8, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201ba100, 0xc4203001b0, 0x98fcf8, 0x13, 0xc4201ba100, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc4201b61e0, 0x5a, 0xc4203001b0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:106 +0x15b
+log/models.Receiver.func1(0xc4202b42a0, 0xc42028e0c0, 0xc420292540)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:81 +0xc8d
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:91 +0x33a
+ 
+2017/06/02 14:50:33 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:50:34 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 14:56:24 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 15:42:26 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 15:57:56 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:06:07 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:09:26 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:11:23 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:15:20 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:18:30 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:32:41 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:32:45 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:34:40 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:35:27 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:35:37 [W] [rabbitmq.go:140] error neo4j line 69 
+2017/06/02 16:35:37 [C] [rabbitmq.go:141] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.TypeError", "message":"Property values can only be of primitive types or arrays thereof"}}
+
+ Stack Trace:
+
+goroutine 22 [running]:
+runtime/debug.Stack(0x99b1dc, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc42026a9f0, 0x99b1dc, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4202982a0, 0xc42027c2a0, 0x6e, 0xc4202866c0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc4202982a0, 0xc42027c2a0, 0x6e, 0xc4202866c0, 0x940de0, 0x1, 0xc4201f5400, 0xc4200456c0, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201f5400, 0xc4202866c0, 0x98fd17, 0x13, 0xc4201f5400, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc42027c2a0, 0x6e, 0xc4202866c0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:113 +0x15b
+log/models.Receiver.func1(0xc4202b8000, 0xc4201c00d0, 0xc4201ba780)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:77 +0xd47
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:98 +0x33a
+ 
+2017/06/02 16:36:27 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:36:38 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:41:10 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:43:00 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:43:33 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:43:42 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:45:53 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:46:17 [W] [rabbitmq.go:141] error neo4j line 69 
+2017/06/02 16:46:17 [C] [rabbitmq.go:142] An error occurred running query
+	An error occurred encoding a struct field
+		Unrecognized type when encoding data for Bolt transport: []uint8 [123 34 65 99 99 101 112 116 34 58 34 42 47 42 34 44 34 65 99 99 101 112 116 45 69 110 99 111 100 105 110 103 34 58 34 103 122 105 112 44 32 100 101 102 108 97 116 101 34 44 34 67 97 99 104 101 45 67 111 110 116 114 111 108 34 58 34 110 111 45 99 97 99 104 101 34 44 34 67 111 110 110 101 99 116 105 111 110 34 58 34 107 101 101 112 45 97 108 105 118 101 34 44 34 80 111 115 116 109 97 110 45 84 111 107 101 110 34 58 34 52 51 100 48 101 51 53 52 45 53 99 56 49 45 52 100 57 98 45 56 52 101 97 45 97 48 52 99 97 53 52 54 51 97 57 52 34 44 34 85 115 101 114 45 65 103 101 110 116 34 58 34 80 111 115 116 109 97 110 82 117 110 116 105 109 101 47 51 46 48 46 49 49 45 104 111 116 102 105 120 46 50 34 125]
+
+ Stack Trace:
+
+goroutine 23 [running]:
+runtime/debug.Stack(0x9a3900, 0x3f, 0xc4202d7048)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.New(0x9a3900, 0x3f, 0xc4202d7048, 0x2, 0x2, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:21 +0x7c
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.encode(0xbd45a0, 0xc4202ce0e0, 0xc420267340, 0xc42026ffff, 0x8c18a0, 0xc4202a2160, 0x0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:210 +0x1d4
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.encodeMap(0xbd45a0, 0xc4202ce0e0, 0xc420267340, 0xffff, 0xc4202a41e0, 0x6e, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:421 +0x414
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.encode(0xbd45a0, 0xc4202ce0e0, 0xc420267340, 0xffff, 0x8efea0, 0xc4202a41e0, 0x0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:206 +0x2a7
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.encodeStructure(0xbd45a0, 0xc4202ce0e0, 0xc420267340, 0x7fcbf651ffff, 0x7fcbf651f148, 0xc420258e80, 0x18, 0xc420258e80)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:462 +0x3c6
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.encode(0xbd45a0, 0xc4202ce0e0, 0xc420267340, 0x40ffff, 0x92c560, 0xc420258e80, 0xc4202d7518, 0xc420258e80)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:208 +0x12d
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.Encode(0xbd45a0, 0xc4202ce0e0, 0xc420267340, 0xc42025ffff, 0x92c560, 0xc420258e80, 0x984aec, 0x5)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:156 +0x61
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRun(0xc4202ce0e0, 0xc4202dc0e0, 0x6e, 0xc4202a41e0, 0x40, 0x40)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:623 +0x1ac
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAll(0xc4202ce0e0, 0xc4202dc0e0, 0x6e, 0xc4202a41e0, 0x0, 0xc420028800)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:659 +0x4d
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc4202ce0e0, 0xc4202dc0e0, 0x6e, 0xc4202a41e0, 0x940de0, 0x1, 0xc4201f3340, 0xc4202d7680, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:692 +0x4d
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201f3340, 0xc4202a41e0, 0x98fd17, 0x13, 0xc4201f3340, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc4202dc0e0, 0x6e, 0xc4202a41e0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:114 +0x15b
+log/models.Receiver.func1(0xc4201ba600, 0xc4201c00d0, 0xc4201ba720)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:78 +0xe8f
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:99 +0x33a
+ 
+2017/06/02 16:46:32 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:48:53 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:49:03 [W] [rabbitmq.go:143] error neo4j line 69 
+2017/06/02 16:49:03 [C] [rabbitmq.go:144] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"message":"Property values can only be of primitive types or arrays thereof", "code":"Neo.ClientError.Statement.TypeError"}}
+
+ Stack Trace:
+
+goroutine 41 [running]:
+runtime/debug.Stack(0x99b1dc, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc4202c4420, 0x99b1dc, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4200de700, 0xc4202692d0, 0x6e, 0xc42026a660, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc4200de700, 0xc4202692d0, 0x6e, 0xc42026a660, 0x940de0, 0x1, 0xc4201b82c0, 0xc4200476b8, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201b82c0, 0xc42026a660, 0x98fd17, 0x13, 0xc4201b82c0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc4202692d0, 0x6e, 0xc42026a660)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:116 +0x15b
+log/models.Receiver.func1(0xc420019f20, 0xc4202901c0, 0xc42029aae0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:80 +0xdf7
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:101 +0x33a
+ 
+2017/06/02 16:50:10 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:57:15 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:58:41 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 16:59:07 [W] [rabbitmq.go:149] error neo4j line 69 
+2017/06/02 16:59:07 [C] [rabbitmq.go:150] An error occurred running query
+	An error occurred encoding a struct field
+		Unrecognized type when encoding data for Bolt transport: models.TypeCustomerRequest {Id:0 Fullname:jannes Username:jannessa Email:jannessantoso@gmail.com}
+
+ Stack Trace:
+
+goroutine 36 [running]:
+runtime/debug.Stack(0x9a3aa0, 0x3f, 0xc420049020)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.New(0x9a3aa0, 0x3f, 0xc420049020, 0x2, 0x2, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:21 +0x7c
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.encode(0xbd45a0, 0xc4200de7e0, 0xc420269810, 0xc42026ffff, 0x939300, 0xc4201f54c0, 0x0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:210 +0x1d4
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.encodeMap(0xbd45a0, 0xc4200de7e0, 0xc420269810, 0xffff, 0xc42026a930, 0x6e, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:421 +0x414
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.encode(0xbd45a0, 0xc4200de7e0, 0xc420269810, 0xffff, 0x8eff80, 0xc42026a930, 0x0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:206 +0x2a7
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.encodeStructure(0xbd45a0, 0xc4200de7e0, 0xc420269810, 0x7f3eeb89ffff, 0x7f3eeb89a1c8, 0xc420257420, 0x18, 0xc420257420)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:462 +0x3c6
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.encode(0xbd45a0, 0xc4200de7e0, 0xc420269810, 0x40ffff, 0x92c640, 0xc420257420, 0xc4200494f0, 0xc420257420)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:208 +0x12d
+github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding.Encoder.Encode(0xbd45a0, 0xc4200de7e0, 0xc420269810, 0xc42025ffff, 0x92c640, 0xc420257420, 0x984c8c, 0x5)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/encoding/encoder.go:156 +0x61
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRun(0xc4200de7e0, 0xc4202693b0, 0x6e, 0xc42026a930, 0x40, 0x40)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:623 +0x1ac
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAll(0xc4200de7e0, 0xc4202693b0, 0x6e, 0xc42026a930, 0x0, 0xc420140c00)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:659 +0x4d
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc4200de7e0, 0xc4202693b0, 0x6e, 0xc42026a930, 0x940f80, 0x1, 0xc4201f55c0, 0xc420049658, 0x85a552, 0x940f80, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:692 +0x4d
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201f55c0, 0xc42026a930, 0x98feb7, 0x13, 0xc4201f55c0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc4202693b0, 0x6e, 0xc42026a930)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:122 +0x15b
+log/models.Receiver.func1(0xc4201b6240, 0xc4202880c0, 0xc4201b6360)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:86 +0xe47
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:107 +0x33a
+ 
+2017/06/02 16:59:43 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:05:12 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:05:20 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:05:30 [W] [rabbitmq.go:143] error neo4j line 69 
+2017/06/02 17:05:30 [C] [rabbitmq.go:144] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.TypeError", "message":"Property values can only be of primitive types or arrays thereof"}}
+
+ Stack Trace:
+
+goroutine 35 [running]:
+runtime/debug.Stack(0x99b1dc, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc420280420, 0x99b1dc, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc420308000, 0xc4202941c0, 0x6e, 0xc420296270, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc420308000, 0xc4202941c0, 0x6e, 0xc420296270, 0x940de0, 0x1, 0xc4201ba1c0, 0xc4202fd6b8, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201ba1c0, 0xc420296270, 0x98fd17, 0x13, 0xc4201ba1c0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc4202941c0, 0x6e, 0xc420296270)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:116 +0x15b
+log/models.Receiver.func1(0xc4202d6240, 0xc420260590, 0xc4202ec060)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:80 +0xdf7
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:101 +0x33a
+ 
+2017/06/02 17:08:21 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:08:24 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:08:37 [W] [rabbitmq.go:141] error neo4j line 69 
+2017/06/02 17:08:37 [C] [rabbitmq.go:142] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Invalid input '\"': expected whitespace, an identifier, UnsignedDecimalInteger, a property key name or '}' (line 1, column 78 (offset: 77))\n\"create (clientNm:clientService{data:{data},reqId:{reqId},body:{body},header:{\"Accept\":\"*/*\",\"Accept-Encoding\":\"gzip, deflate\",\"Cache-Control\":\"no-cache\",\"Connection\":\"keep-alive\",\"Content-Length\":\"84\",\"Content-Type\":\"application/json\",\"Postman-Token\":\"04c8423b-9f04-4a24-ad6b-4664a4a81285\",\"User-Agent\":\"PostmanRuntime/3.0.11-hotfix.2\"},created_at:timestamp() })\"\n                                                                              ^"}}
+
+ Stack Trace:
+
+goroutine 51 [running]:
+runtime/debug.Stack(0x99b1f6, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc4202c4390, 0x99b1f6, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4200de8c0, 0xc42014c300, 0x16a, 0xc420268930, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc4200de8c0, 0xc42014c300, 0x16a, 0xc420268930, 0x940de0, 0x1, 0xc4202d0200, 0xc420049650, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4202d0200, 0xc420268930, 0x98fd17, 0x13, 0xc4202d0200, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc42014c300, 0x16a, 0xc420268930)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:114 +0x15b
+log/models.Receiver.func1(0xc4202ac0c0, 0xc4202605b0, 0xc4202ac1e0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:78 +0xd02
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:99 +0x33a
+ 
+2017/06/02 17:11:03 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:11:09 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:11:19 [W] [rabbitmq.go:142] error neo4j line 69 
+2017/06/02 17:11:19 [C] [rabbitmq.go:143] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Invalid input '\"': expected whitespace, an identifier, UnsignedDecimalInteger, a property key name or '}' (line 1, column 78 (offset: 77))\n\"create (clientNm:clientService{data:{data},reqId:{reqId},body:{body},header:{\"Accept\":\"*/*\",\"Accept-Encoding\":\"gzip, deflate\",\"Cache-Control\":\"no-cache\",\"Connection\":\"keep-alive\",\"Content-Length\":\"84\",\"Content-Type\":\"application/json\",\"Postman-Token\":\"3e1add64-f679-4ca5-aec6-c27c763bd8a8\",\"User-Agent\":\"PostmanRuntime/3.0.11-hotfix.2\"},created_at:timestamp() })\"\n                                                                              ^"}}
+
+ Stack Trace:
+
+goroutine 14 [running]:
+runtime/debug.Stack(0x99b1f6, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc420268e40, 0x99b1f6, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4200de700, 0xc42014c300, 0x16a, 0xc420268840, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc4200de700, 0xc42014c300, 0x16a, 0xc420268840, 0x940de0, 0x1, 0xc4201f53c0, 0xc420049650, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201f53c0, 0xc420268840, 0x98fd17, 0x13, 0xc4201f53c0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc42014c300, 0x16a, 0xc420268840)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:115 +0x15b
+log/models.Receiver.func1(0xc4202824e0, 0xc4201bc0d0, 0xc420282600)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:79 +0xd32
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:100 +0x33a
+ 
+2017/06/02 17:11:51 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:12:22 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:12:25 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:12:35 [W] [rabbitmq.go:144] error neo4j line 69 
+2017/06/02 17:12:35 [C] [rabbitmq.go:145] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Invalid input '\"': expected whitespace, an identifier, UnsignedDecimalInteger, a property key name or '}' (line 1, column 78 (offset: 77))\n\"create (clientNm:clientService{data:{data},reqId:{reqId},body:{body},header:{\"Accept\":\"*/*\",\"Accept-Encoding\":\"gzip, deflate\",\"Cache-Control\":\"no-cache\",\"Connection\":\"keep-alive\",\"Content-Length\":\"84\",\"Content-Type\":\"application/json\",\"Postman-Token\":\"1fd715ab-cb88-4046-a9a1-b8e61c65f36b\",\"User-Agent\":\"PostmanRuntime/3.0.11-hotfix.2\"},created_at:timestamp() })\"\n                                                                              ^"}}
+
+ Stack Trace:
+
+goroutine 24 [running]:
+runtime/debug.Stack(0x99b1f6, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc4202685a0, 0x99b1f6, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4202c00e0, 0xc4202f8000, 0x16a, 0xc42027e7e0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc4202c00e0, 0xc4202f8000, 0x16a, 0xc42027e7e0, 0x940de0, 0x1, 0xc4201f7440, 0xc4202cd630, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201f7440, 0xc42027e7e0, 0x98fd17, 0x13, 0xc4201f7440, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc4202f8000, 0x16a, 0xc42027e7e0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:117 +0x15b
+log/models.Receiver.func1(0xc4201b6ae0, 0xc4201bc1a0, 0xc4201b6c00)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:81 +0xdc7
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:102 +0x33a
+ 
+2017/06/02 17:14:06 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:14:11 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:14:32 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:16:00 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:16:10 [W] [rabbitmq.go:143] error neo4j line 69 
+2017/06/02 17:16:10 [C] [rabbitmq.go:144] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Invalid input '\"': expected whitespace, an identifier, UnsignedDecimalInteger, a property key name or '}' (line 1, column 78 (offset: 77))\n\"create (clientNm:clientService{data:{data},reqId:{reqId},body:{body},header:{\"Accept\":\"*/*\",\"Accept-Encoding\":\"gzip, deflate\",\"Cache-Control\":\"no-cache\",\"Connection\":\"keep-alive\",\"Content-Length\":\"84\",\"Content-Type\":\"application/json\",\"Postman-Token\":\"98e6e634-102c-4070-85fc-ec11fb7c6a70\",\"User-Agent\":\"PostmanRuntime/3.0.11-hotfix.2\"},created_at:timestamp() })\"\n                                                                              ^"}}
+
+ Stack Trace:
+
+goroutine 22 [running]:
+runtime/debug.Stack(0x99b1f6, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc420286b40, 0x99b1f6, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc420312000, 0xc420310000, 0x16a, 0xc420286540, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc420312000, 0xc420310000, 0x16a, 0xc420286540, 0x940de0, 0x1, 0xc4201aa300, 0xc420045630, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201aa300, 0xc420286540, 0x98fd17, 0x13, 0xc4201aa300, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc420310000, 0x16a, 0xc420286540)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:116 +0x15b
+log/models.Receiver.func1(0xc4202fc000, 0xc4202c00c0, 0xc4201a4840)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:80 +0xdc4
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:101 +0x33a
+ 
+2017/06/02 17:16:34 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:16:50 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:17:00 [W] [rabbitmq.go:143] error neo4j line 69 
+2017/06/02 17:17:00 [C] [rabbitmq.go:144] Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Invalid input '\"': expected whitespace, an identifier, UnsignedDecimalInteger, a property key name or '}' (line 1, column 78 (offset: 77))\n\"create (clientNm:clientService{data:{data},reqId:{reqId},body:{body},header:{\"Accept\":\"*/*\",\"Accept-Encoding\":\"gzip, deflate\",\"Cache-Control\":\"no-cache\",\"Connection\":\"keep-alive\",\"Content-Length\":\"84\",\"Content-Type\":\"application/json\",\"Postman-Token\":\"4621d96c-f264-44ec-b521-b7c7a3de6d34\",\"User-Agent\":\"PostmanRuntime/3.0.11-hotfix.2\"},created_at:timestamp() })\"\n                                                                              ^"}}
+
+ Stack Trace:
+
+goroutine 50 [running]:
+runtime/debug.Stack(0x99b1f6, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc42026b200, 0x99b1f6, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4200de7e0, 0xc42014c300, 0x16a, 0xc42026ac00, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).sendRunPullAllConsumeAll(0xc4200de7e0, 0xc42014c300, 0x16a, 0xc42026ac00, 0x940de0, 0x1, 0xc4201f56c0, 0xc420043630, 0x85a552, 0x940de0, ...)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:697 +0x6e
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecNeo(0xc4201f56c0, 0xc42026ac00, 0x98fd17, 0x13, 0xc4201f56c0, 0x0)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:99 +0x7c
+log/models.SendGraphDb(0xc42014c300, 0x16a, 0xc42026ac00)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:116 +0x15b
+log/models.Receiver.func1(0xc4202a60c0, 0xc4202606a0, 0xc42027aae0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:80 +0xdd9
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:101 +0x33a
+ 
+2017/06/02 17:18:44 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/02 17:18:54 [W] [rabbitmq.go:142] error neo4j line 125 
+2017/06/02 17:18:54 [C] [rabbitmq.go:143] An error occurred getting result of exec command: messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Invalid input ''': expected whitespace, an identifier, UnsignedDecimalInteger, a property key name or '}' (line 1, column 38 (offset: 37))\n\"create (clientNm:clientService{data:{'client_3510942875414458836'},reqId:{'3510942875414458836'},body:{'{\"\n                                      ^"}}
+	Neo4J reported a failure for the query
+Internal Error(messages.FailureMessage):messages.FailureMessage{Metadata:map[string]interface {}{"code":"Neo.ClientError.Statement.SyntaxError", "message":"Invalid input ''': expected whitespace, an identifier, UnsignedDecimalInteger, a property key name or '}' (line 1, column 38 (offset: 37))\n\"create (clientNm:clientService{data:{'client_3510942875414458836'},reqId:{'3510942875414458836'},body:{'{\"\n                                      ^"}}
+
+ Stack Trace:
+
+goroutine 38 [running]:
+runtime/debug.Stack(0x99b21d, 0x26, 0x0)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x79
+github.com/johnnadratowski/golang-neo4j-bolt-driver/errors.Wrap(0xbd5fa0, 0xc4202cc0f0, 0x99b21d, 0x26, 0x0, 0x0, 0x0, 0x908400)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/errors/errors.go:38 +0x1ad
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltConn).consume(0xc4202f6000, 0x1, 0x1, 0xc4202c6270, 0x1)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/conn.go:565 +0x250
+github.com/johnnadratowski/golang-neo4j-bolt-driver.(*boltStmt).ExecPipeline(0xc4202ba0c0, 0xc420302000, 0x1, 0x1, 0xbd9fa0, 0xc4202ba0c0, 0x0, 0x0, 0x1e4)
+	/home/ubuntu/TN/CIS/template/src/github.com/johnnadratowski/golang-neo4j-bolt-driver/stmt.go:145 +0x22c
+log/models.SendGraphPipeline(0xc4202f4000, 0x1e4)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:132 +0x1b6
+log/models.Receiver.func1(0xc4202a43c0, 0xc420260570, 0xc4202a44e0)
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:79 +0xae8
+created by log/models.Receiver
+	/home/ubuntu/TN/CIS/template/src/log/models/rabbitmq.go:100 +0x33a
+ 
+2017/06/02 17:20:30 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 11:40:00 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 12:30:36 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 12:31:49 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 12:42:55 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 12:43:39 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 12:44:01 [W] [rabbitmq.go:144] error connect mongo DB 
+2017/06/05 12:44:01 [C] [rabbitmq.go:145] no reachable servers 
+2017/06/05 12:44:19 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 12:44:36 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 12:44:57 [W] [rabbitmq.go:144] error connect mongo DB 
+2017/06/05 12:44:57 [C] [rabbitmq.go:145] no reachable servers 
+2017/06/05 12:46:28 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 12:46:50 [W] [rabbitmq.go:144] error connect mongo DB 
+2017/06/05 12:46:50 [C] [rabbitmq.go:145] no reachable servers 
+2017/06/05 12:48:18 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 12:49:05 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 12:49:46 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:28:18 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:31:14 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:32:01 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:38:08 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:38:12 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:38:41 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:40:45 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 13:40:45 [D] [rabbitmq.go:128] 1 
+2017/06/05 13:40:45 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 13:40:45 [D] [rabbitmq.go:128] 1 
+2017/06/05 13:41:03 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:41:41 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:41:44 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:41:55 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 13:41:55 [D] [rabbitmq.go:128] 1 
+2017/06/05 13:41:55 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 13:41:55 [D] [rabbitmq.go:128] 1 
+2017/06/05 13:41:55 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 13:41:55 [D] [rabbitmq.go:128] 0 
+2017/06/05 13:43:38 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:47:40 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:48:19 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 13:48:29 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 13:48:29 [D] [rabbitmq.go:128] 1 
+2017/06/05 13:48:29 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 13:48:29 [D] [rabbitmq.go:128] 1 
+2017/06/05 13:48:30 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 13:48:30 [D] [rabbitmq.go:128] 0 
+2017/06/05 14:02:15 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 14:02:18 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 14:02:20 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 14:03:19 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 14:04:32 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 14:04:39 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 14:04:46 [I] [asm_amd64.s:2197] http server Running on http://:8080
+2017/06/05 14:04:58 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 14:04:58 [D] [rabbitmq.go:128] 1 
+2017/06/05 14:04:58 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 14:04:58 [D] [rabbitmq.go:128] 1 
+2017/06/05 14:04:58 [D] [rabbitmq.go:127] Created Rows 
+2017/06/05 14:04:58 [D] [rabbitmq.go:128] 0 

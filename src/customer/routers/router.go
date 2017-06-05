@@ -11,10 +11,6 @@ import (
 	"customer/controllers"
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego"
-	"customer/thirdparty"
-	"log"
-	"math/rand"
-	"strconv"
 )
 
 func init() {
@@ -38,44 +34,9 @@ func init() {
 
 
 func Auth(c *context.Context) {
-	log.Println("")
-	// SendMq(c)
-	/*
-	Input Request Data [Body Header]
-	x := int64(120)
-	t := c.Input.CopyBody(x)
-	log.Println(string(t))
-
-	l := c.Input.Header("key")
-	log.Println(l)
-	*/
-
-
 	beego.Debug("checking.....")
-	// c.Output.Body([]byte("bob"))
 }
 
 func AfterFunc(c *context.Context) {
-	// var t interface{}
-	// t = []byte(`{"name":"jannes"}`)
-	// body := c.Output.JSON(t,true,true);
-	// log.Println(body)
-
-	// res := c.ResponseWriter
-	// log.Println(res)
-}
-
-func SendMq(c *context.Context) {
-	reqId := ""
-	fromService := beego.BConfig.AppName
-	inputReqBody := c.Input.CopyBody(int64(1200))
-	headerAll := c.Input.HeaderAll()
-
-	randomId := strconv.Itoa(rand.Int())
-	reqId = randomId
-	newRequest := false
-	if c.Input.Header("reqID") == "" {
-		newRequest = true
-	}
-	thirdparty.SendMQ(inputReqBody,fromService,"",headerAll,reqId,newRequest)
+	
 }

@@ -6,13 +6,49 @@ import (
 	"errors"
 	"strconv"
 	"strings"
+	"math/rand"
+
+	"customer/helper"
+	"customer/thirdparty"
 
 	"github.com/astaxie/beego"
+	// "github.com/astaxie/beego/context"
 )
 
 // TblCustomerController operations for TblCustomer
 type TblCustomerController struct {
 	beego.Controller
+}
+
+func TrackingOutputCustomer(c *TblCustomerController) {
+	SendMq(c)
+	c.ServeJSON()
+}
+
+func SendMq(c *TblCustomerController) {
+	fromService := beego.BConfig.AppName
+	reqBody := c.Ctx.Input.CopyBody(int64(1200))
+	resBody,_ := json.Marshal(c.Data["json"])
+	headerAll := helper.HeaderAll(c.Ctx)
+	toService := ""
+	
+	reqId := c.Ctx.Input.Header("reqID")
+	newRequest := false
+	if reqId == "" {
+		newRequest = true
+		PtrReqId(&reqId,rand.Int(),&fromService,"client",&toService,beego.BConfig.AppName)
+	}else{
+		
+	}
+
+	thirdparty.SendMq(reqBody,fromService,toService,headerAll,reqId,newRequest,"req")
+	thirdparty.SendMq(resBody,fromService,toService,headerAll,reqId,newRequest,"res")
+}
+
+func PtrReqId(reqId *string,val int,fromService *string, valFromService string, toService *string, valToService string) {
+	*reqId = strconv.Itoa(val)
+	*fromService = valFromService
+	*toService = valToService
 }
 
 // URLMapping ...
@@ -43,7 +79,8 @@ func (c *TblCustomerController) Post() {
 	} else {
 		c.Data["json"] = err.Error()
 	}
-	c.ServeJSON()
+
+	TrackingOutputCustomer(c)
 }
 
 // GetOne ...
@@ -125,7 +162,7 @@ func (c *TblCustomerController) GetAll() {
 	} else {
 		c.Data["json"] = l
 	}
-	c.ServeJSON()
+	TrackingOutputCustomer(c)
 }
 
 // Put ...
