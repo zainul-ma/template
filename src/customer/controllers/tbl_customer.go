@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"customer/models"
 	"encoding/json"
-	"errors"
-	"strconv"
 	"strings"
+
+	"customer/models"
+	"errors"
 
 	"github.com/astaxie/beego"
 )
@@ -32,9 +32,9 @@ func (c *TblCustomerController) URLMapping() {
 // @Failure 403 body is empty
 // @router / [post]
 func (c *TblCustomerController) Post() {
-	var v models.TblCustomer
+	var v models.Customer
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddTblCustomer(&v); err == nil {
+		if err2 := models.AddCustomer(&v); err2 == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -55,8 +55,9 @@ func (c *TblCustomerController) Post() {
 // @router /:id [get]
 func (c *TblCustomerController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetTblCustomerById(id)
+
+	v, err := models.GetCustomerByID(idStr)
+
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -82,19 +83,19 @@ func (c *TblCustomerController) GetAll() {
 	var sortby []string
 	var order []string
 	var query = make(map[string]string)
-	var limit int64 = 10
-	var offset int64
+	var limit int = 10
+	var offset string
 
 	// fields: col1,col2,entity.col3
 	if v := c.GetString("fields"); v != "" {
 		fields = strings.Split(v, ",")
 	}
 	// limit: 10 (default is 10)
-	if v, err := c.GetInt64("limit"); err == nil {
+	if v, err := c.GetInt("limit"); err == nil {
 		limit = v
 	}
 	// offset: 0 (default is 0)
-	if v, err := c.GetInt64("offset"); err == nil {
+	if v := c.GetString("offset"); v != "" {
 		offset = v
 	}
 	// sortby: col1,col2
@@ -119,7 +120,7 @@ func (c *TblCustomerController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllTblCustomer(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllCustomer(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -138,10 +139,9 @@ func (c *TblCustomerController) GetAll() {
 // @router /:id [put]
 func (c *TblCustomerController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	v := models.TblCustomer{Id: id}
+	var v models.Customer
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateTblCustomerById(&v); err == nil {
+		if err2 := models.UpdateCustomer(idStr, &v); err2 == nil {
 			c.Data["json"] = "OK"
 		} else {
 			c.Data["json"] = err.Error()
@@ -161,8 +161,8 @@ func (c *TblCustomerController) Put() {
 // @router /:id [delete]
 func (c *TblCustomerController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteTblCustomer(id); err == nil {
+
+	if err := models.DeleteCustomer(idStr); err == nil {
 		c.Data["json"] = "OK"
 	} else {
 		c.Data["json"] = err.Error()
