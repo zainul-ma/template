@@ -55,3 +55,4 @@
 2017/06/06 12:08:05 [D] [router.go:31] checking..... 
 2017/06/06 12:08:05 [D] [mongo.go:23] mongodb://172.17.0.2:27017/customer 
 2017/06/06 12:08:05 [D] [mongo.go:24] local 
+2017/06/06 13:40:46 [I] [asm_amd64.s:2197] http server Running on http://:8081
