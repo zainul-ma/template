@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+  labels: 
+    run: mongo
+spec:
+  ports:
+  -  port: 27017
+     targetPort: 27017
+     nodePort: 30817
+  type: LoadBalancer
+  selector:
+    run: mongo

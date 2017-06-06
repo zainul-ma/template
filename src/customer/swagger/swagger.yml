@@ -1,14 +1,5 @@
 swagger: "2.0"
-info:
-  title: beego Test API
-  description: beego has a very cool tools to autogenerate documents for your API
-  version: 1.0.0
-  termsOfService: http://beego.me/
-  contact:
-    email: astaxie@gmail.com
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+info: {}
 basePath: /v1
 paths:
   /tbl_customer/:
@@ -40,13 +31,13 @@ paths:
         description: Limit the size of result set. Must be an integer
         type: string
       - in: query
-        name: offset
-        description: Start position of result set. Must be an integer
+        name: latestID
+        description: Start position of result set. Must be an ID
         type: string
       responses:
         "200":
           schema:
-            $ref: '#/definitions/models.TblCustomer'
+            $ref: '#/definitions/.TblCustomer'
         "403": {}
     post:
       tags:
@@ -59,7 +50,7 @@ paths:
         description: body for TblCustomer content
         required: true
         schema:
-          $ref: '#/definitions/models.TblCustomer'
+          $ref: '#/definitions/.TblCustomer'
       responses:
         "201":
           description: '{int} models.TblCustomer'
@@ -80,7 +71,7 @@ paths:
       responses:
         "200":
           schema:
-            $ref: '#/definitions/models.TblCustomer'
+            $ref: '#/definitions/.TblCustomer'
         "403":
           description: :id is empty
     put:
@@ -99,11 +90,11 @@ paths:
         description: body for TblCustomer content
         required: true
         schema:
-          $ref: '#/definitions/models.TblCustomer'
+          $ref: '#/definitions/.TblCustomer'
       responses:
         "200":
           schema:
-            $ref: '#/definitions/models.TblCustomer'
+            $ref: '#/definitions/.TblCustomer'
         "403":
           description: :id is not int
     delete:
@@ -123,19 +114,8 @@ paths:
         "403":
           description: id is empty
 definitions:
-  models.TblCustomer:
-    title: TblCustomer
+  .TblCustomer:
     type: object
-    properties:
-      Email:
-        type: string
-      Fullname:
-        type: string
-      Id:
-        type: integer
-        format: int64
-      Username:
-        type: string
 tags:
 - name: tbl_customer
   description: |

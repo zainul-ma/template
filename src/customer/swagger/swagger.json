@@ -1,17 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "beego Test API",
-        "description": "beego has a very cool tools to autogenerate documents for your API",
-        "version": "1.0.0",
-        "termsOfService": "http://beego.me/",
-        "contact": {
-            "email": "astaxie@gmail.com"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        }
+        "contact": {}
     },
     "basePath": "/v1",
     "paths": {
@@ -55,15 +45,15 @@
                     },
                     {
                         "in": "query",
-                        "name": "offset",
-                        "description": "Start position of result set. Must be an integer",
+                        "name": "latestID",
+                        "description": "Start position of result set. Must be an ID",
                         "type": "string"
                     }
                 ],
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#/definitions/models.TblCustomer"
+                            "$ref": "#/definitions/.TblCustomer"
                         }
                     },
                     "403": {}
@@ -82,7 +72,7 @@
                         "description": "body for TblCustomer content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.TblCustomer"
+                            "$ref": "#/definitions/.TblCustomer"
                         }
                     }
                 ],
@@ -115,7 +105,7 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#/definitions/models.TblCustomer"
+                            "$ref": "#/definitions/.TblCustomer"
                         }
                     },
                     "403": {
@@ -143,14 +133,14 @@
                         "description": "body for TblCustomer content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.TblCustomer"
+                            "$ref": "#/definitions/.TblCustomer"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#/definitions/models.TblCustomer"
+                            "$ref": "#/definitions/.TblCustomer"
                         }
                     },
                     "403": {
@@ -185,24 +175,8 @@
         }
     },
     "definitions": {
-        "models.TblCustomer": {
-            "title": "TblCustomer",
-            "type": "object",
-            "properties": {
-                "Email": {
-                    "type": "string"
-                },
-                "Fullname": {
-                    "type": "string"
-                },
-                "Id": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "Username": {
-                    "type": "string"
-                }
-            }
+        ".TblCustomer": {
+            "type": "object"
         }
     },
     "tags": [
