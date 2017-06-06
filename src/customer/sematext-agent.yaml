@@ -1,0 +1,38 @@
+# Kubernetes 1.1.8 and 1.2
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+ name: sematext-agent
+spec:
+ template:
+   metadata:
+     labels:
+       app: sematext-agent
+   spec:
+     nodeSelector: {}
+     hostNetwork: true
+     dnsPolicy: "ClusterFirst"
+     restartPolicy: "Always"
+     containers:
+     - name: sematext-agent
+       image: sematext/sematext-agent-docker:latest
+       imagePullPolicy: "Always"
+       env:
+       - name: SPM_TOKEN
+         value: "54e04179-3298-4e5e-8830-3ed7dc874823"
+       - name: LOGSENE_TOKEN
+         value: "3d7af680-09d6-4ea1-b03e-60effe3ccd3d"
+       volumeMounts:
+         - mountPath: /var/run/docker.sock
+           name: docker-sock
+         - mountPath: /etc/localtime
+           name: localtime
+       securityContext:
+         privileged: true
+     volumes:
+       - name: docker-sock
+         hostPath:
+           path: /var/run/docker.sock
+       - name: localtime
+         hostPath:
+           path: /etc/localtime

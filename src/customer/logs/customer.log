@@ -13,3 +13,45 @@
 2017/06/05 14:53:48 [I] [asm_amd64.s:2197] http server Running on http://:8081
 2017/06/05 15:12:00 [I] [asm_amd64.s:2197] http server Running on http://:8081
 2017/06/05 15:12:03 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 15:49:33 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/05 15:49:35 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/06 10:48:18 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/06 10:48:26 [D] [router.go:31] checking..... 
+2017/06/06 10:48:26 [W] [rabbitmq.go:85] MESSAGE RABBITMQ: Failed to connect to RabbitMQ 
+2017/06/06 10:48:26 [E] [rabbitmq.go:86] 1024 AMQP scheme must be either 'amqp://' or 'amqps://' 
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] the request url is  /v1/tbl_customer
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/asm_amd64.s:514
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/panic.go:489
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/panic.go:63
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/signal_unix.go:290
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/github.com/streadway/amqp/connection.go:348
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/github.com/streadway/amqp/connection.go:318
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/asm_amd64.s:514
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/panic.go:489
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/panic.go:63
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/signal_unix.go:290
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/github.com/streadway/amqp/connection.go:589
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/github.com/streadway/amqp/connection.go:619
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/github.com/streadway/amqp/connection.go:646
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/customer/thirdparty/rabbitmq.go:43
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/customer/controllers/tbl_customer.go:45
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/customer/controllers/tbl_customer.go:25
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/customer/controllers/tbl_customer.go:167
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/customer/controllers/tbl_customer.go:59
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/github.com/astaxie/beego/controller.go:168
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /home/ubuntu/TN/CIS/template/src/github.com/astaxie/beego/router.go:813
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/net/http/server.go:2568
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/net/http/server.go:1825
+2017/06/06 10:48:26 [C] [asm_amd64.s:514] /usr/local/go/src/runtime/asm_amd64.s:2197
+2017/06/06 10:50:59 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/06 10:51:27 [D] [router.go:31] checking..... 
+2017/06/06 10:51:30 [D] [router.go:31] checking..... 
+2017/06/06 10:51:36 [D] [router.go:31] checking..... 
+2017/06/06 11:23:34 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/06 11:23:37 [D] [router.go:31] checking..... 
+2017/06/06 11:23:38 [D] [router.go:31] checking..... 
+2017/06/06 12:08:00 [I] [asm_amd64.s:2197] http server Running on http://:8081
+2017/06/06 12:08:05 [D] [router.go:31] checking..... 
+2017/06/06 12:08:05 [D] [mongo.go:23] mongodb://172.17.0.2:27017/customer 
+2017/06/06 12:08:05 [D] [mongo.go:24] local 

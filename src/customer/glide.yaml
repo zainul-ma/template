@@ -1,0 +1,13 @@
+package: .
+import:
+- package: github.com/astaxie/beego
+  subpackages:
+  - context
+  - context/param
+  - logs
+- package: github.com/streadway/amqp
+- package: gopkg.in/mgo.v2
+  subpackages:
+  - bson
+testImport:
+- package: github.com/go-sql-driver/mysql
