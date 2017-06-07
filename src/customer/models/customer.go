@@ -10,8 +10,6 @@ import (
 	structCustomer "customer/structs"
 )
 
-var session *mgo.Session
-
 func getTableName() string {
 	return "customer"
 }
@@ -39,7 +37,9 @@ func GetAllCustomer(query map[string]string, fields []string, sortby []string,
 	limit int) (searchResults []interface{}, err error) {
 
 	queryBuilder := bson.M{}
-	queryBuilder["$or"] = []bson.M{}
+	if len(query) != 0 {
+		queryBuilder["$or"] = []bson.M{}
+	}
 
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
