@@ -21,11 +21,13 @@ type TblCustomerController struct {
 	beego.Controller
 }
 
+// TrackingOutputCustomer method
 func TrackingOutputCustomer(c *TblCustomerController) {
 	SendMq(c)
 	c.ServeJSON()
 }
 
+// SendMq method
 func SendMq(c *TblCustomerController) {
 	fromService := beego.BConfig.AppName
 	reqBody := c.Ctx.Input.CopyBody(int64(1200))
@@ -35,17 +37,18 @@ func SendMq(c *TblCustomerController) {
 
 	reqID := c.Ctx.Input.Header("reqID")
 	newRequest := false
-	if reqId == "" {
+	if reqID == "" {
 		newRequest = true
-		PtrReqId(&reqId, rand.Int(), &fromService, "client", &toService, beego.BConfig.AppName)
+		PtrReqId(&reqID, rand.Int(), &fromService, "client", &toService, beego.BConfig.AppName)
 	} else {
 
 	}
 
-	thirdparty.SendMq(reqBody, fromService, toService, headerAll, reqId, newRequest, "req")
-	thirdparty.SendMq(resBody, fromService, toService, headerAll, reqId, newRequest, "res")
+	thirdparty.SendMq(reqBody, fromService, toService, headerAll, reqID, newRequest, "req")
+	thirdparty.SendMq(resBody, fromService, toService, headerAll, reqID, newRequest, "res")
 }
 
+// PtrReqId method
 func PtrReqId(reqId *string, val int, fromService *string, valFromService string, toService *string, valToService string) {
 	*reqId = strconv.Itoa(val)
 	*fromService = valFromService
@@ -100,7 +103,8 @@ func (c *TblCustomerController) GetOne() {
 	} else {
 		c.Data["json"] = v
 	}
-	c.ServeJSON()
+
+	TrackingOutputCustomer(c)
 }
 
 // GetAll ...
@@ -163,6 +167,7 @@ func (c *TblCustomerController) GetAll() {
 	} else {
 		c.Data["json"] = l
 	}
+
 	TrackingOutputCustomer(c)
 }
 
@@ -186,7 +191,8 @@ func (c *TblCustomerController) Put() {
 	} else {
 		c.Data["json"] = err.Error()
 	}
-	c.ServeJSON()
+
+	TrackingOutputCustomer(c)
 }
 
 // Delete ...
@@ -204,5 +210,6 @@ func (c *TblCustomerController) Delete() {
 	} else {
 		c.Data["json"] = err.Error()
 	}
-	c.ServeJSON()
+
+	TrackingOutputCustomer(c)
 }
