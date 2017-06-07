@@ -13,6 +13,7 @@ src/golang.org
 src/google.golang.org
 src/gopkg.in
 src/customerapi/migration
+pkg
 
 # editor ignore
 .idea
