@@ -1,0 +1,6 @@
+package: .
+import:
+- package: github.com/astaxie/beego
+- package: github.com/johnnadratowski/golang-neo4j-bolt-driver
+- package: github.com/streadway/amqp
+- package: gopkg.in/mgo.v2

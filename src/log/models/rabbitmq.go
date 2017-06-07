@@ -3,7 +3,7 @@ package models
 import (
   "log"
   "time"
-  "os"
+  // "os"
 
   "github.com/streadway/amqp"
   "github.com/astaxie/beego"
@@ -40,6 +40,19 @@ func CredMq() string {
 	}
 
 	return mq
+}
+
+func CredNeo4j() string {
+	neo4j := ""
+	if envOs == "local" {
+		neo4j = beego.AppConfig.String("neo4j::local")
+	}else if envOs == "dev" {
+		neo4j = beego.AppConfig.String("neo4j::dev")
+	}else if envOs == "prod" {
+		neo4j = beego.AppConfig.String("neo4j::prod")
+	}
+
+	return neo4j
 }
 
 func Receiver() {
@@ -126,7 +139,8 @@ func Receiver() {
 
 
 func SendGraphDb(neoQuery string,execQuery map[string]interface{}) {
-	conn, err := driverNeo4j.OpenNeo("bolt://neo4j:root@localhost:7687")
+	credNeo4j := CredNeo4j()
+	conn, err := driverNeo4j.OpenNeo(credNeo4j)
 	CheckErr(err,"Error Connect GraphDB")
 	defer conn.Close()
 
@@ -145,7 +159,8 @@ func SendGraphDb(neoQuery string,execQuery map[string]interface{}) {
 }
 
 func SendGraphPipeline(neoQuery string) {
-	conn, err := driverNeo4j.OpenNeo("bolt://neo4j:root@localhost:7687")
+	credNeo4j := CredNeo4j()
+	conn, err := driverNeo4j.OpenNeo(credNeo4j)
 	CheckErr(err,"Error Connect GraphDB")
 	defer conn.Close()
 

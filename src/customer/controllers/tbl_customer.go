@@ -33,7 +33,7 @@ func SendMq(c *TblCustomerController) {
 	headerAll := helper.HeaderAll(c.Ctx)
 	toService := ""
 
-	reqId := c.Ctx.Input.Header("reqID")
+	reqID := c.Ctx.Input.Header("reqID")
 	newRequest := false
 	if reqId == "" {
 		newRequest = true
@@ -80,7 +80,7 @@ func (c *TblCustomerController) Post() {
 	} else {
 		c.Data["json"] = err.Error()
 	}
-	c.ServeJSON()
+	TrackingOutputCustomer(c)
 }
 
 // GetOne ...
@@ -163,7 +163,7 @@ func (c *TblCustomerController) GetAll() {
 	} else {
 		c.Data["json"] = l
 	}
-	c.ServeJSON()
+	TrackingOutputCustomer(c)
 }
 
 // Put ...

@@ -1,0 +1,26 @@
+FROM golang:1.8.1
+
+ENV GOPATH /go
+ENV GOENV dev
+ENV PATH $GOPATH/bin:$PATH
+
+RUN mkdir -p /go/src/log
+
+ADD log /go/src/log
+ADD github.com /go/src/github.com
+ADD gopkg.in /go/src/gopkg.in
+WORKDIR /go/src/log
+
+RUN go get github.com/beego/bee
+
+RUN go build -o /go/src/log/log /go/src/log/main.go
+
+# RUN bee run customer
+
+# EXPOSE 8081
+
+CMD ["/go/bin/bee","run","log"]
+
+## docker build -t log:v1 -f Dockerfile_log .
+## kubectl run log --image=log:v1 --port=8080
+## kubectl create -f log/conf/app.yaml

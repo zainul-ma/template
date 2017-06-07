@@ -14,11 +14,11 @@ var envOs = os.Getenv("GOENV")
 func DbCred() string {
 	dbURL := ""
     if envOs == "local" {
-    	dbURL = beego.AppConfig.String("mongodb:local")
+    	dbURL = beego.AppConfig.String("mongodb::local")
 	}else if envOs == "dev" {
-		dbURL = beego.AppConfig.String("mongodb:dev")
+		dbURL = beego.AppConfig.String("mongodb::dev")
 	}else if envOs == "prod" {
-		dbURL = beego.AppConfig.String("mongodb:prod")
+		dbURL = beego.AppConfig.String("mongodb::prod")
 	}
 
     return dbURL
