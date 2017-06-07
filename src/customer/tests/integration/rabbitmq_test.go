@@ -25,12 +25,17 @@ func TestRabbitCredentialAndConnection(t *testing.T) {
 
 	_, err := amqp.Dial(mqURL)
 
+	_, errMq := thirdparty.ConnectMq(mqURL)
+
 	Convey("Subject: RabbitMq Test\n", t, func() {
 		Convey("Rabbit mq credential", func() {
 			So(mqURL, ShouldEqual, beego.AppConfig.String("mq::local"))
 		})
-		Convey("Rabbit connecction", func() {
+		Convey("Rabbit connecction Url", func() {
 			So(err, ShouldEqual, nil)
+		})
+		Convey("Rabbit Mq connection third party", func() {
+			So(errMq, ShouldEqual, nil)
 		})
 	})
 }
