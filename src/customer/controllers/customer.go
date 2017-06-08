@@ -39,18 +39,22 @@ func SendMq(c *TblCustomerController) {
 	newRequest := false
 	if reqID == "" {
 		newRequest = true
-		PtrReqId(&reqID, rand.Int(), &fromService, "client", &toService, beego.BConfig.AppName)
+		PtrReqID(&reqID, rand.Int(), &fromService, "client", &toService,
+			beego.BConfig.AppName)
 	} else {
 
 	}
 
-	thirdparty.SendMq(reqBody, fromService, toService, headerAll, reqID, newRequest, "req")
-	thirdparty.SendMq(resBody, fromService, toService, headerAll, reqID, newRequest, "res")
+	thirdparty.SendMq(reqBody, fromService, toService, headerAll, reqID,
+		newRequest, "req")
+	thirdparty.SendMq(resBody, fromService, toService, headerAll, reqID,
+		newRequest, "res")
 }
 
-// PtrReqId method
-func PtrReqId(reqId *string, val int, fromService *string, valFromService string, toService *string, valToService string) {
-	*reqId = strconv.Itoa(val)
+// PtrReqID method
+func PtrReqID(reqID *string, val int, fromService *string,
+	valFromService string, toService *string, valToService string) {
+	*reqID = strconv.Itoa(val)
 	*fromService = valFromService
 	*toService = valToService
 }
@@ -161,7 +165,8 @@ func (c *TblCustomerController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllCustomer(query, fields, sortby, order, latestID, limit)
+	l, err := models.GetAllCustomer(query, fields, sortby, order, latestID,
+		limit)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {

@@ -6,28 +6,25 @@ import (
 	"testing"
 
 	"gopkg.in/mgo.v2/bson"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func removeAll() {
 	connection := models.ConnectMongo()
-
 	defer connection.Close()
-
-	c := connection.DB("").C("customer")
-
+	c := connection.DB(models.GetDBName()).C(models.GetTableName())
 	c.RemoveAll(nil)
 }
 
 func buildRecord() (bson.ObjectId, structCustomer.Customer) {
 	ID := bson.NewObjectId()
-
 	v := structCustomer.Customer{
 		ID:       ID,
 		Fullname: "fake",
 		Email:    "fake@faker.com",
 		Username: "fakerusername",
 	}
-
 	return ID, v
 }
 
@@ -37,22 +34,26 @@ func init() {
 
 func TestAddCustomer(t *testing.T) {
 	removeAll()
-
 	ID, v := buildRecord()
 
-	if err := models.AddCustomer(&v); err != nil {
-		t.Error("Should have created customer value")
-	}
+	errAdd := models.AddCustomer(&v)
 
-	v, err := models.GetCustomerByID(ID.Hex())
+	vGetByID, err := models.GetCustomerByID(ID.Hex())
 
-	if err != nil {
-		t.Error("Should have created customer by ID")
-	}
-
-	if v.ID != ID {
-		t.Error("Should have same ID , from initial ID and created ID")
-	}
+	Convey("Subject: Unit Test Adding Customer\n", t, func() {
+		Convey("Should have success created customer", func() {
+			So(errAdd, ShouldEqual, nil)
+		})
+		Convey("Should have success get customer by ID", func() {
+			So(err, ShouldEqual, nil)
+		})
+		Convey("Should have get created customer by ID", func() {
+			So(v, ShouldResemble, vGetByID)
+		})
+		Convey("Should have same ID , from initial ID and created ID", func() {
+			So(vGetByID.ID, ShouldEqual, ID)
+		})
+	})
 }
 
 func TestGetAllCustomer(t *testing.T) {
@@ -75,57 +76,58 @@ func TestGetAllCustomer(t *testing.T) {
 
 	l, _ := models.GetAllCustomer(query, fields, sortby, order, offset, limit)
 
-	if len(l) == 0 {
-		t.Error("Should have records")
-	}
-
-	if len(l) != 10 {
-		t.Error("Should be have 10 records")
-	}
+	Convey("Subject: Unit Test Get Customer\n", t, func() {
+		Convey("Should have customer record", func() {
+			So(len(l), ShouldBeGreaterThan, 0)
+		})
+		Convey("Should be have 10 records", func() {
+			So(len(l), ShouldEqual, 10)
+		})
+	})
 }
 
 func TestGetCustomerByID(t *testing.T) {
 	removeAll()
 
 	ID, v := buildRecord()
+	err := models.AddCustomer(&v)
+	value, errGetByID := models.GetCustomerByID(ID.Hex())
 
-	if err := models.AddCustomer(&v); err != nil {
-		t.Error("Should have created customer value")
-	}
-
-	value, err := models.GetCustomerByID(ID.Hex())
-
-	if err != nil {
-		t.Error("Shoudl have get customer by ID")
-	}
-
-	if v != value {
-		t.Error("Should be same value initial and get by ID")
-	}
+	Convey("Subject: Unit Test Get Customer by ID\n", t, func() {
+		Convey("Should have created customer value", func() {
+			So(err, ShouldEqual, nil)
+		})
+		Convey("Should have get customer by ID", func() {
+			So(errGetByID, ShouldEqual, nil)
+		})
+		Convey("Should be same value initial and get by ID", func() {
+			So(v, ShouldResemble, value)
+		})
+	})
 }
 
 func TestGetDeletedByID(t *testing.T) {
 	removeAll()
 
 	ID, v := buildRecord()
-
-	if err := models.AddCustomer(&v); err != nil {
-		t.Error("Should have created customer value")
-	}
-
-	if err := models.DeleteCustomer(ID.Hex()); err != nil {
-		t.Error("Should not have customer with ID created")
-	}
-
+	errCreate := models.AddCustomer(&v)
+	errDelete := models.DeleteCustomer(ID.Hex())
 	value, err := models.GetCustomerByID(ID.Hex())
 
-	if err == nil {
-		t.Error("Should not have error when get record by ID")
-	}
-
-	if value == v {
-		t.Error("Should not have a record have beend deleted")
-	}
+	Convey("Subject: Unit Test Get Customer by ID\n", t, func() {
+		Convey("Should have created customer value", func() {
+			So(errCreate, ShouldEqual, nil)
+		})
+		Convey("Should have deleted customer by ID", func() {
+			So(errDelete, ShouldEqual, nil)
+		})
+		Convey("Should not have error when get record by ID", func() {
+			So(err.Error(), ShouldEqual, "not found")
+		})
+		Convey("Should not have a record have beend deleted", func() {
+			So(value, ShouldNotResemble, v)
+		})
+	})
 }
 
 func TestUpdateCustomer(t *testing.T) {
@@ -138,28 +140,28 @@ func TestUpdateCustomer(t *testing.T) {
 		Email:    "rony@fakerUpdated.com",
 		Username: "ronyrusernameUpdated",
 	}
+	err := models.AddCustomer(&v)
+	errUpdate := models.UpdateCustomer(ID.Hex(), &u)
+	value, errGetByID := models.GetCustomerByID(ID.Hex())
 
-	if err := models.AddCustomer(&v); err != nil {
-		t.Error("Should have created customer value")
-	}
-
-	if err := models.UpdateCustomer(ID.Hex(), &u); err != nil {
-		t.Error("Should have updated customer")
-	}
-
-	value, err := models.GetCustomerByID(ID.Hex())
-
-	if err != nil {
-		t.Error("Should have created or updated customer by ID")
-	}
-
-	if value.ID != ID {
-		t.Error("Should have same ID , from initial ID and created ID")
-	}
-
-	u.ID = ID
-
-	if value != u {
-		t.Error("Should have same value, from updated and the select updated")
-	}
+	Convey("Subject: Unit Test Update Customer by ID\n", t, func() {
+		Convey("Should have created customer value", func() {
+			So(err, ShouldEqual, nil)
+		})
+		Convey("Should have update customer by ID", func() {
+			So(errUpdate, ShouldEqual, nil)
+		})
+		Convey("Should have created or updated customer by ID", func() {
+			So(errGetByID, ShouldEqual, nil)
+		})
+		Convey("Should have same ID, from initial ID and updated ID", func() {
+			So(value.ID, ShouldEqual, ID)
+		})
+		Convey("Should have same value, from updated and the select updated",
+			func() {
+				So(value.Fullname, ShouldEqual, u.Fullname)
+				So(value.Email, ShouldEqual, u.Email)
+				So(value.Username, ShouldEqual, u.Username)
+			})
+	})
 }

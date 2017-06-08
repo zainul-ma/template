@@ -10,7 +10,13 @@ import (
 	structCustomer "customer/structs"
 )
 
-func getTableName() string {
+// GetTableName method
+func GetTableName() string {
+	return "customer"
+}
+
+// GetDBName method
+func GetDBName() string {
 	return "customer"
 }
 
@@ -20,7 +26,7 @@ func GetCustomerByID(id string) (cust structCustomer.Customer, err error) {
 
 	defer connection.Close()
 
-	c := connection.DB("").C(getTableName())
+	c := connection.DB(GetDBName()).C(GetTableName())
 
 	customer := structCustomer.Customer{}
 
@@ -44,7 +50,8 @@ func GetAllCustomer(query map[string]string, fields []string, sortby []string,
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
 		k = strings.Replace(k, ".", "__", -1)
-		queryBuilder["$or"] = append(queryBuilder["$or"].([]bson.M), bson.M{k: v})
+		queryBuilder["$or"] = append(queryBuilder["$or"].([]bson.M),
+			bson.M{k: v})
 	}
 
 	// order by:
@@ -66,7 +73,8 @@ func GetAllCustomer(query map[string]string, fields []string, sortby []string,
 			}
 
 		} else if len(sortby) != len(order) && len(order) == 1 {
-			// 2) there is exactly one order, all the sorted fields will be sorted by this order
+			// 2) there is exactly one order,
+			// all the sorted fields will be sorted by this order
 			for _, v := range sortby {
 				orderby := ""
 				if order[0] == "desc" {
@@ -106,7 +114,7 @@ func GetAllCustomer(query map[string]string, fields []string, sortby []string,
 func withCollection(s func(*mgo.Collection) error) error {
 	connection := ConnectMongo()
 	defer connection.Close()
-	c := connection.DB("").C(getTableName())
+	c := connection.DB(GetDBName()).C(GetTableName())
 	return s(c)
 }
 
@@ -148,7 +156,7 @@ func Search(q interface{}, fields []string, sortBy []string, limit int) (
 func UpdateCustomer(id string, customer *structCustomer.Customer) (err error) {
 	connection := ConnectMongo()
 	defer connection.Close()
-	c := connection.DB("").C(getTableName())
+	c := connection.DB(GetDBName()).C(GetTableName())
 	err = c.Update(bson.M{"_id": bson.ObjectIdHex(id)}, customer)
 	return
 }
@@ -157,7 +165,7 @@ func UpdateCustomer(id string, customer *structCustomer.Customer) (err error) {
 func AddCustomer(customer *structCustomer.Customer) (err error) {
 	connection := ConnectMongo()
 	defer connection.Close()
-	c := connection.DB("").C(getTableName())
+	c := connection.DB(GetDBName()).C(GetTableName())
 	err = c.Insert(customer)
 	return
 }
@@ -166,7 +174,7 @@ func AddCustomer(customer *structCustomer.Customer) (err error) {
 func DeleteCustomer(id string) (err error) {
 	connection := ConnectMongo()
 	defer connection.Close()
-	c := connection.DB("").C(getTableName())
+	c := connection.DB(GetDBName()).C(GetTableName())
 	err = c.Remove(bson.M{"_id": bson.ObjectIdHex(id)})
 	return
 }

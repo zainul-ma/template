@@ -21,11 +21,8 @@ import (
 
 func removeAll() {
 	connection := models.ConnectMongo()
-
 	defer connection.Close()
-
-	c := connection.DB("").C("customer")
-
+	c := connection.DB(models.GetDBName()).C(models.GetDBName())
 	c.RemoveAll(nil)
 }
 
@@ -74,9 +71,10 @@ func TestCustomerGet(t *testing.T) {
 
 	beego.BeeApp.Handlers.ServeHTTP(w, r)
 
-	beego.Trace("testing", "TestGetAllCustomer", "Code[%d]\n%s", w.Code, w.Body.String())
+	beego.Trace("testing", "TestGetAllCustomer", "Code[%d]\n%s", w.Code,
+		w.Body.String())
 
-	Convey("Subject: Customer Endpoint\n", t, func() {
+	Convey("Subject: Customer Endpoint Get All\n", t, func() {
 		Convey("Status Code Should Be 200", func() {
 			So(w.Code, ShouldEqual, 200)
 		})
@@ -103,9 +101,10 @@ func TestCustomerGetById(t *testing.T) {
 	w := httptest.NewRecorder()
 	beego.BeeApp.Handlers.ServeHTTP(w, r)
 
-	beego.Trace("testing", "TestCustomerGetById", "Code[%d]\n%s", w.Code, w.Body.String())
+	beego.Trace("testing", "TestCustomerGetById", "Code[%d]\n%s", w.Code,
+		w.Body.String())
 
-	Convey("Subject: Customer Endpoint\n", t, func() {
+	Convey("Subject: Customer Endpoint Get By ID\n", t, func() {
 		Convey("Status Code Should Be 200", func() {
 			So(w.Code, ShouldEqual, 200)
 		})
@@ -130,7 +129,8 @@ func TestCustomerDelete(t *testing.T) {
 	w := httptest.NewRecorder()
 	beego.BeeApp.Handlers.ServeHTTP(w, r)
 
-	beego.Trace("testing", "TestDeleteCustomer", "Code[%d]\n%s", w.Code, w.Body.String())
+	beego.Trace("testing", "TestDeleteCustomer", "Code[%d]\n%s", w.Code,
+		w.Body.String())
 
 	Convey("Subject: Customer Endpoint Delete\n", t, func() {
 		Convey("Status Code Should Be 200", func() {

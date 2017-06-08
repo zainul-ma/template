@@ -40,6 +40,8 @@ func TestConnection(t *testing.T) {
 
 	session := models.ConnectMongo()
 
+	defer session.Close()
+
 	Convey("Subject: Monggo Connection\n", t, func() {
 		Convey("Monggo conecction error should be nil", func() {
 			So(err, ShouldEqual, nil)
