@@ -8,6 +8,10 @@ ENV PATH $GOPATH/bin:$PATH
 
 RUN mkdir -p /go/src/customer
 
+RUN mkdir -p /go/src/customer/logs
+
+RUN touch /go/src/customer/logs/customer.log
+
 ADD . /go/src/customer
 
 WORKDIR /go/src/customer

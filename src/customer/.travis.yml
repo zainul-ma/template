@@ -33,14 +33,17 @@ script:
   # - goveralls -service=travis-ci
 after_success:
   - docker build -t apalahitunamanya2/customer:$(git log --format="%H" -n 1) .
+  - docker build -t apalahitunamanya2/customer:latest .
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push apalahitunamanya2/customer:$(git log --format="%H" -n 1);
+    docker push apalahitunamanya2/customer:latest;
     fi
   - cd .travis/
   - ls -lah
   - chmod 600 $KEY_SSH
   - ssh -i $KEY_SSH -oStrictHostKeyChecking=no $USER_SSH@$HOST_DEV  'bash -s' < deploy-update-docker.sh
+  - ls -lah
 notifications:
   slack:
     rooms:
