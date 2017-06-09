@@ -1,0 +1,47 @@
+language: go
+go:
+  - 1.8.1
+services:
+  - docker
+before_install:
+  - cd $HOME/gopath/src/
+  - git clone --depth=50 --branch=master https://github.com/zainul-ma/customer.git customer
+  - cd $HOME/gopath/src/customer
+  - echo 'export GOENV=testCi' >> ~/.bashrc
+  - source ~/.bashrc
+  - go get -u gopkg.in/alecthomas/gometalinter.v1
+  - go get github.com/mattn/goveralls
+  - openssl aes-256-cbc -K $encrypted_db5c7526208d_key -iv $encrypted_db5c7526208d_iv -in tn-indo-key.pem.enc -out tn-indo-key.pem -d
+install:
+  - docker run -p 27017:27017 -d --name mongo mongo
+  - docker run -p 5672:5672 -d --name rabbitmq rabbitmq
+  - docker ps -a
+  - wget https://raw.githubusercontent.com/pote/gpm/v1.4.0/bin/gpm && chmod +x gpm && sudo mv gpm /usr/local/bin
+  # - GOPATH=$HOME/gopath gometalinter --install
+  - gpm install
+  - ifconfig
+script:
+  - cd $HOME/gopath/
+  - ls -lah
+  - cd $HOME/gopath/src/customer
+  - ls -lah
+  - go env
+  - pwd
+  - go test ./...
+  #  - gometalinter ./...
+  - cd $HOME/gopath/src/customer
+  # - goveralls -service=travis-ci
+after_success:
+  - docker build -t apalahitunamanya2/customer:$(git log --format="%H" -n 1) .
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push apalahitunamanya2/customer:$(git log --format="%H" -n 1);
+    fi
+  - cd .travis/
+  - ls -lah
+  - chmod 600 $KEY_SSH
+  - ssh -i $KEY_SSH -oStrictHostKeyChecking=no $USER_SSH@$HOST_DEV  'bash -s' < deploy-update-docker.sh
+notifications:
+  slack:
+    rooms:
+      - tnindo:rZLNlfCwMFJDF68W1CtvtGoLfWN4lSbmq#travis-ci
